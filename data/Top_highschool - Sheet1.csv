@@ -1,0 +1,399 @@
+S/NO,SCHOOL,MEAN,POS,REGION,COUNTY,GRADE
+1,NYAMBARIA SCHOOL,10.897,1,NYANZA,Nyamira,A-{minus}
+2,CARDINAL OTUNGA,10.76,2,NYANZA,Kisii,A-{minus}
+3,Kokuro Boys,10.68,3,NYANZA,Migori,A-{minus}
+4,ALLIANCE GIRLS,10.52,4,Central,Kiambu,A-{minus}
+5,ST Brigids Girls High KIMININI,10.5,5,Rift Valley,Trans Nzoia,A-{minus}
+6,Strathmore School,10.5,6,Nairobi,Nairobi,A-{minus}
+7,PANGANI GIRLS,10.49,7,Nairobi,Nairobi,B+{plus}
+8,NAKURU BOYS HIGH,10.42,8,Rift Valley,Nakuru,B+{plus}
+9,ASUMBI GIRLS,10.377,9,NYANZA,Homa Bay,B+{plus}
+10,Mang’u High,10.336,10,Central,Kiambu,B+{plus}
+11,St. Anthonys Boys Kitale,10.33,11,Rift Valley,Tranz Nzoia,B+{plus}
+12,GONZAGA GONZA,10.3,12,NYANZA,Nyamira,B+{plus}
+13,Mudasa Academy,10.3,13,WESTERN,Vihiga,B+{plus}
+14,MUDASA ACADEMY,10.3,14,WESTERN,Vihiga,B+{plus}
+15,ST. PAULS IGONGA,10.24,15,NYANZA,Kisii,B+{plus}
+16,Igonga DOK Secondary,10.24,16,NYANZA,Kisii,B+{plus}
+17,Alliance High School,10.2,17,Central,Kiambu,B+{plus}
+18,Moi High School Kabarak,10.13,18,Rift Valley,Nakuru,B+{plus}
+19,Kapsabet High,10.083,19,Rift Valley,Nandi,B+{plus}
+20,Kisumu Day Secondary,10.074,20,NYANZA,kisumu,B+{plus}
+21,Moi Girls Eldoret,10.06,21,Rift Valley,Uasin Gishu,B+{plus}
+22,KANGA HIGH,9.97,22,NYANZA,Migori,B+{plus}
+23,KAAGA GIRLS,9.96,23,Eastern,meru,B+{plus}
+24,Kenya High School,9.95,24,Nairobi,Nairobi,B+{plus}
+25,Matinyani Secondary,9.942,25,Eastern,Kitui,B+{plus}
+26,St Brigids Girls High,9.92,26,Rift Valley,Tranz Nzoia,B+{plus}
+27,ORERO BOYS,9.906,27,NYANZA,Homa Bay,B+{plus}
+28,Light Academy Mombasa,9.9,28,Coast,Mombasa,B+{plus}
+29,Samoei Boys High,9.89,29,Rift Valley,Nandi,B+{plus}
+30,CHEPWAGAN BOYS,9.7474,30,Rift Valley,Kericho,B+{plus}
+31,Chebwagan high,9.74,31,Rift Valley,Kericho,B+{plus}
+32,MASENO SCHOOL,9.663,32,NYANZA,Kisumu,B+{plus}
+33,Ogande Girls,9.62,33,NYANZA,Homa Bay,B+{plus}
+34,Sawagongo High,9.619,34,NYANZA,Siaya,B+{plus}
+35,Kagumo High,9.58,35,Central,Nyeri,B+{plus}
+36,Murang’a High,9.55,36,Central,Murang’a,B+{plus}
+37,Nairobi School,9.543,37,Nairobi,Nairobi,B+{plus}
+38,MARANDA SCHOOL,9.541,38,NYANZA,Siaya,B+{plus}
+39,Nyakongo boys,9.54,39,NYANZA,Nyamira,B+{plus}
+40,MERU SCHOOL,9.52,40,Eastern,Meru,B+{plus}
+41,ST PATRICKS MAKUNGA,9.5,41,Rift Valley,Tranz Nzoia,B+{plus}
+42,Cheborge Boys,9.44,42,Rift Valley,Kericho,B{plain}
+43,Bishop Linus Okok girls,9.43,43,NYANZA,Homa Bay,B{plain}
+44,Light Academy Nairobi,9.39,44,Nairobi,Nairobi,B{plain}
+45,CHEBORGE GIRLS,9.3754,45,Rift Valley,Kericho,B{plain}
+46,Korongoi Girls,9.36,46,Rift Valley,Kericho,B{plain}
+47,Lelwak boys,9.344,47,Rift Valley,Nandi,B{plain}
+48,KIPSIGIS GIRLS HIGH SCHOOL,9.3154,48,Rift Valley,Kericho,B{plain}
+49,Kitui School,9.312,49,Eastern,Kitui,B{plain}
+50,Nyalenda Secondary,9.3,50,NYANZA,Homa Bay,B{plain}
+51,Butula Boys,9.287,51,WESTERN,Busia,B{plain}
+52,MOBAMBA HIGH,9.284,52,NYANZA,Kisii,B{plain}
+53,Sigoti Complex,9.27,53,NYANZA,Kisumu,B{plain}
+54,STAREHE BOYS CENTRE,9.27,54,Nairobi,Nairobi,B{plain}
+55,ST.MARKS CHERANG’ANI,9.2517,55,WESTERN,Tranz Nzoia,B{plain}
+56,Friends School Kakamega,9.2473,56,WESTERN,Kakamega,B{plain}
+57,Mt Carmel girls,9.2353,57,Eastern,Makueni,B{plain}
+58,MaryHill Girls,9.23,58,Central,Kiambu,B{plain}
+59,Kiage Tumaini High,9.23,59,NYANZA,Kisii,B{plain}
+60,Saye Mixed,9.22,60,NYANZA,Homa Bay,B{plain}
+61,Kabianga High,9.2162,61,Rift Valley,Kericho,B{plain}
+62,Moi Tea Girls High School,9.21,62,Rift Valley,Kericho,B{plain}
+63,OSSEN GIRLS HIGH,9.2,63,Rift Valley,Baringo,B{plain}
+64,ST MARKS CHERANGANY,9.2,64,Rift Valley,Tranz Nzoia,B{plain}
+65,Tombe Girls Secondary,9.1765,65,NYANZA,Nyamira,B{plain}
+66,MBITA HIGH,9.157,66,NYANZA,Homa Bay,B{plain}
+67,KATHIANI GIRLS HIGH,9.1235,67,Eastern,Machakos,B{plain}
+68,KISII SCHOOL,9.12,68,NYANZA,Kisii,B{plain}
+69,MWONGORI HIGH,9.119,69,NYANZA,Nyamira,B{plain}
+70,KUURA SEC,9.11,70,NYANZA,Nyamira,B{plain}
+71,St Clare Girls Secondary,9.1,71,Rift Valley,Nakuru,B{plain}
+72,ANDERSEN HIGH,9.1,72,Rift Valley,Tranz Nzoia,B{plain}
+73,ST PETERS ABWAO SECONDARY,9.1,73,NYANZA,kisumu,B{plain}
+74,St Pauls Gekano Boys,9.0634,74,NYANZA,Nyamira,B{plain}
+75,NYANSIONGO HIGH,9.053,75,NYANZA,Nyamira,B{plain}
+76,WANG’APALA BOYS,9.04,76,NYANZA,Homa Bay,B{plain}
+77,Sheikh Khalifa Bin Zayed,9,77,Coast,Mombasa,B{plain}
+78,RIGOKO ELCK,9,78,NYANZA,Nyamira,B{plain}
+79,Kapsabet Girls,8.98,79,Rift Valley,Nandi,B{plain}
+80,Metkei Girls High,8.96,80,Rift Valley,Elgeyo Marakwet,B{plain}
+81,AGORO SARE,8.935,81,NYANZA,Homa Bay,B{plain}
+82,Kibabii Boys High,8.93,82,WESTERN,Bungoma,B{plain}
+83,Mbooni Girls,8.911,83,Eastern,Makueni,B{plain}
+84,Nanyuki High School,8.89,84,Rift Valley,Laikipia,B{plain}
+85,MENYENYA SDA,8.871,85,NYANZA,Nyamira,B{plain}
+86,Ruth Kiptui Girls Kasok,8.87,86,Rift Valley,Baringo,B{plain}
+87,Moteiribe Secondary,8.859,87,NYANZA,Kisii,B{plain}
+88,KEBIRIGO BOYS,8.842,88,NYANZA,Nyamira,B{plain}
+89,Arabuko Forest High,8.84,89,Coast,Kilifi,B{plain}
+90,Nyamagwa girls,8.823,90,NYANZA,Kisii,B{plain}
+91,RUTH KIPTUI GIRLS,8.8,91,Rift Valley,Baringo,B{plain}
+92,ST JOSEPHS BOYS,8.8,92,Rift Valley,Trans Nzoia,B{plain}
+93,DERTU SECONDARY SCHOOL,8.8,93,North Eastern,Garissa,B{plain}
+94,BUNYORE GIRLS,8.8,94,WESTERN,Vihiga,B{plain}
+95,Meteitei Secondary,8.77,95,Rift Valley,Nandi,B{plain}
+96,Qubaa Muslim Secondary,8.76,96,Coast,Mombasa,B{plain}
+97,OLOOLAISER HIGH SCHOOL,8.76,97,Rift Valley,Kajiado,B{plain}
+98,TENWEK HIGH SCHOOL,8.7561,98,Rift Valley,Bomet,B{plain}
+99,KABARE GIRLS,8.734,99,Central,Kirinyaga,B{plain}
+100,MUGOIRI GIRLS,8.731,100,Central,Murang’a,B{plain}
+101,BUTERE GIRLS,8.727,101,WESTERN,Kakamega,B{plain}
+102,NYAIKURO MIXED SEC,8.71,102,NYANZA,Nyamira,B{plain}
+103,Got Rateng’ Mixed,8.7,103,NYANZA,Homa Bay,B{plain}
+104,Chemelil Sugar Academy,8.69,104,NYANZA,Kisumu,B{plain}
+105,LUGULU GIRLS,8.655,105,WESTERN,Bungoma,B{plain}
+106,St Andrew Kaggwa Girls High,8.648,106,NYANZA,Nyamira,B{plain}
+107,MOI HIGH SCHOOL MBIRURI,8.6451,107,Eastern,Embu,B{plain}
+108,NYABURURU GIRLS,8.631,108,NYANZA,Kisii,B{plain}
+109,Nyabite DOK Secondary,8.601,109,NYANZA,Kisii,B{plain}
+110,NYAKOIBA HIGH,8.6,110,NYANZA,Kisii,B{plain}
+111,Ober Boys,8.6,111,NYANZA,Homa Bay,B{plain}
+112,Nyangajo Girls,8.6,112,NYANZA,Homa Bay,B{plain}
+113,Dr Aggrey School,8.6,113,Coast,Taita Taveta,B{plain}
+114,SEGERO ADVENTIST,8.6,114,Rift Valley,Tranz Nzoia,B{plain}
+115,AIC Sombe Girls,8.545,115,Eastern,Kitui,B{plain}
+116,IGEMBE BOYS,8.52,116,Eastern,Meru,B{plain}
+117,Kianungu Mixed,8.5,117,NYANZA,Nyamira,B{plain}
+118,RAPOGI HIGH,8.489,118,NYANZA,Migori,B-{minus)
+119,Kisumu Girls,8.47,119,NYANZA,Kisumu,B-{minus)
+120,MANGA GIRLS,8.4,120,NYANZA,Nyamira,B-{minus)
+121,Dudi Girls,8.4,121,NYANZA,Homa Bay,B-{minus)
+122,Kwale High School,8.4,122,Coast,Kwale,B-{minus)
+123,Mwaghogho Boys School,8.4,123,Coast,Taita Taveta,B-{minus)
+124,TABAGON GIRLS HIGH SCHOOL,8.4,124,Rift Valley,Baringo,B-{minus)
+125,MAKUENI BOYS,8.399,125,Eastern,Makueni,B-{minus)
+126,St. Patrick’s iten,8.369,126,Rift Valley,Elgeyo Marakwet,B-{minus)
+127,Lenana School,8.3596,127,Nairobi,Nairobi,B-{minus)
+128,NYAKEMINCHA SEC,8.35,128,NYANZA,Nyamira,B-{minus)
+129,Koru Girls,8.3465,129,NYANZA,kisumu,B-{minus)
+130,KIPKELION GIRLS,8.3335,130,Rift Valley,Kericho,B-{minus)
+131,NYANSABAKWA BOYS,8.316,131,NYANZA,Nyamira,B-{minus)
+132,Bishop Abiero,8.3,132,NYANZA,Kisumu,B-{minus)
+133,BARINGO HIGH SCHOOL,8.3,133,Rift Valley,Baringo,B-{minus)
+134,BOGICHONCHO PAG,8.275,134,NYANZA,Kisii,B-{minus)
+135,Manyatta Mixed Day,8.275,135,North Eastern,Marsabit,B-{minus)
+136,MANYATTA MIXED SECONDARY,8.275,136,North Eastern,Marsabit,B-{minus)
+137,ST DANIEL COMBONI KAPTABUK BOYS,8.2556,137,Rift Valley,West Pokot,B-{minus)
+138,BUSIADA GIRLS,8.247,138,WESTERN,Busia,B-{minus)
+139,Kenyatta High School- Mwatate,8.23,139,Coast,Taita Taveta,B-{minus)
+140,SACHO HIGH SCHOOL,8.23,140,Rift Valley,Baringo,B-{minus)
+141,KAKAMEGA SCHOOL,8.228,141,WESTERN,Kakamega,B-{minus)
+142,Rang’ala Girls,8.2264,142,NYANZA,Siaya,B-{minus)
+143,RAN’GALA GIRLS,8.226,143,NYANZA,Siaya,B-{minus)
+144,MATUTU PAG SEC,8.2,144,NYANZA,Nyamira,B-{minus)
+145,Mirogi Boys,8.2,145,NYANZA,Homa Bay,B-{minus)
+146,Obera Boys,8.2,146,NYANZA,Homa Bay,B-{minus)
+147,ST JOSEPHS GIRLS,8.2,147,Rift Valley,Tranz Nzoia,B-{minus)
+148,ST CHARLES LWANGA SCHOOL KITUI,8.18,148,Eastern,Kitui,B-{minus)
+149,St. Charles Lwanga,8.18,149,Eastern,Kitui,B-{minus)
+150,KIABONYORU HIGH,8.17,150,NYANZA,Nyamira,B-{minus)
+151,Ulanda Girls,8.17,151,NYANZA,Migori,B-{minus)
+152,Nkubu High,8.1693,152,Eastern,Meru,B-{minus)
+153,Our Lady of Lourdres Turbo Girls,8.14,153,Rift Valley,Uasin Gishu,B-{minus)
+154,RAN’GALA BOYS,8.117,154,NYANZA,Siaya,B-{minus)
+155,MUTHALE GIRLS HIGH,8.11,155,Eastern,kitui,B-{minus)
+156,Miathene Boys,8.101,156,Eastern,Meru,B-{minus)
+157,PeHill Boys,8.1,157,NYANZA,Migori,B-{minus)
+158,Gendia High,8.1,158,NYANZA,Homa Bay,B-{minus)
+159,NYACHURURU SEC,8.08,159,NYANZA,Nyamira,B-{minus)
+160,HEILU MIXED SECONDARY,8.08,160,North Eastern,Marsabit,B-{minus)
+161,KEBABE GIRLS,8.07,161,NYANZA,Nyamira,B-{minus)
+162,SAMETA HIGH,8.0637,162,NYANZA,Kisii,B-{minus)
+163,KIMUGUI BOYS,8.05,163,WESTERN,Bungoma,B-{minus)
+164,Olbutyo Boys,8.03,164,Rift Valley,Bomet,B-{minus)
+165,NYABISASE MIXED,8.025,165,NYANZA,Kisii,B-{minus)
+166,AMASEGE SDA,8.023,166,NYANZA,Kisii,B-{minus)
+167,AMABUKO SEC,8.011,167,NYANZA,Kisii,B-{minus)
+168,MACHAKOS BOYS,8.0081,168,Eastern,Machakos,B-{minus)
+169,GEDI HIGH SCHOOL,8,169,North Eastern,Garissa,B-{minus)
+170,Gekano Girls,7.972,170,NYANZA,Nyamira,B-{minus)
+171,LITEIN HIGH,7.9656,171,Rift Valley,Kericho,B-{minus)
+172,KISASI SECONDARY,7.965,172,Eastern,kitui,B-{minus)
+173,TENGECHA GIRLS,7.9595,173,Rift Valley,Kericho,B-{minus)
+174,St Bernabas Kombewa,7.93,174,NYANZA,Kisumu,B-{minus)
+175,Ramba Boys,7.924,175,NYANZA,Siaya,B-{minus)
+176,Precious Blood Kilungu,7.92,176,Eastern,Makueni,B-{minus)
+177,Chavakali High,7.912,177,WESTERN,Vihiga,B-{minus)
+178,KYANG’ONDU SECONDARY,7.905,178,Eastern,Makueni,B-{minus)
+179,Utumishi Boys Academy,7.894,179,Rift Valley,Nakuru,B-{minus)
+180,MANDERA SECONDARY,7.8826,180,North Eastern,MANDERA,B-{minus)
+181,Matongo Boys,7.86,181,NYANZA,Nyamira,B-{minus)
+182,PAUL BOIT HIGH SCHOOL,7.8542,182,Rift Valley,Uasin Gishu,B-{minus)
+183,Moi Siongiroi High,7.85,183,Rift Valley,Bomet,B-{minus)
+184,Riokindo Boys,7.83,184,NYANZA,Kisii,B-{minus)
+185,Onjiko Boys,7.82,185,NYANZA,Kisumu,B-{minus)
+186,NYANG’ORI HIGH,7.8143,186,NYANZA,kisumu,B-{minus)
+187,NYERI HIGH,7.81,187,Central,Nyeri,B-{minus)
+188,Nyamira Boys,7.806,188,NYANZA,Nyamira,B-{minus)
+189,Ridore Mixed,7.8,189,NYANZA,Kisumu,B-{minus)
+190,WAYAM SECONDARY,7.8,190,North Eastern,MANDERA,B-{minus)
+191,Maroo Esinde,7.795,191,NYANZA,Kisii,B-{minus)
+192,Kaplong Girls High School,7.792,192,Rift Valley,Bomet,B-{minus)
+193,SINYOLO GIRLS,7.7753,193,NYANZA,kisumu,B-{minus)
+194,LAFEY SECONDARY,7.77,194,North Eastern,MANDERA,B-{minus)
+195,OLKIRIANE SECONDARY SCHOOL,7.768,195,Rift Valley,NAROK,B-{minus)
+196,KUNYAK SECONDARY,7.7647,196,Rift Valley,Kericho,B-{minus)
+197,ST JOSEPHS BIEGO SECONDARY,7.7647,197,NYANZA,Nyamira,B-{minus)
+198,Magwar Model,7.76,198,NYANZA,Kisumu,B-{minus)
+199,CARING HEARTS HIGH SCHOOL,7.76,199,Eastern,Machakos,B-{minus)
+200,RUTH KIPTUI GIRLS,7.732,200,Rift Valley,Baringo,B-{minus)
+201,CARDINAL OTUNGA GIRLS,7.70504,201,WESTERN,Bungoma,B-{minus)
+202,Lwak Girls,7.7,202,NYANZA,Siaya,B-{minus)
+203,Gesiaga High,7.6954,203,NYANZA,Nyamira,B-{minus)
+204,Sironga Girls,7.69,204,NYANZA,Nyamira,B-{minus)
+205,Omwari Secondary,7.647,205,NYANZA,Kisii,B-{minus)
+206,CHEBARA BOYS,7.645,206,Rift Valley,Elgeyo Marakwet,B-{minus)
+207,DARUL HIKMA,7.62,207,North Eastern,MANDERA,B-{minus)
+208,Nyamiranga SDA,7.6125,208,NYANZA,Nyamira,B-{minus)
+209,Bishop Colin Davies Senior,7.6,209,Rift Valley,Narok,B-{minus)
+210,KATILU BOYS,7.5855,210,Rift Valley,Turkana,B-{minus)
+211,KHASOKO BOYS,7.5794,211,WESTERN,Bungoma,B-{minus)
+212,"Bura Girls High School, Mwatate",7.571,212,Coast,Taita Taveta,B-{minus)
+213,UZALENDO SCHOOL,7.57,213,Rift Valley,Baringo,B-{minus)
+214,MITUA GIRLS,7.52,214,WESTERN,Bungoma,B-{minus)
+215,Ugenya High,7.5,215,NYANZA,Siaya,B-{minus)
+216,ACK Rae Girls,7.5,216,NYANZA,kisumu,B-{minus)
+217,St Mary’s Yala,7.5,217,NYANZA,Siaya,B-{minus)
+218,HOMA BAY HIGH SCHOOL,7.5,218,NYANZA,Homa Bay,B-{minus)
+219,Moi Gesusu,7.49,219,NYANZA,Kisii,C+{plus}
+220,St. Josephs Kibwezi,7.488,220,Eastern,Makueni,C+{plus}
+221,ST JOSEPHS KIBWEZI,7.488,221,Eastern,Makueni,C+{plus}
+222,KAPSOIT SECONDARY,7.4858,222,Rift Valley,Kericho,C+{plus}
+223,SANTA MARIA GIRLS CHEPTULON,7.4834,223,Rift Valley,Elgeyo Marakwet,C+{plus}
+224,MISYANI GIRLS HIGH,7.4823,224,Eastern,Machakos,C+{plus}
+225,Mokubo Secondary,7.46,225,NYANZA,Kisii,C+{plus}
+226,KANYAWANGA HIGH,7.45,226,NYANZA,Migori,C+{plus}
+227,RINGA BOYS,7.44,227,NYANZA,Homa Bay,C+{plus}
+228,RAE GIRLS,7.4,228,NYANZA,KISUMU,C+{plus}
+229,AIC LITEIN GIRLS,7.4,229,Rift Valley,Kericho,C+{plus}
+230,KOLANYA BOYS,7.3806,230,WESTERN,Busia,C+{plus}
+231,SA KOLANYA BOYS HIGH,7.38,231,WESTERN,Bungoma,C+{plus}
+232,Matuga Girls High School,7.36,232,Coast,Kwale,C+{plus}
+233,NALONDO GIRLS,7.36,233,WESTERN,Bungoma,C+{plus}
+234,GEKONGE SECONDARY,7.35,234,NYANZA,Nyamira,C+{plus}
+235,ST JOSEPHS CHEPTERIT GIRLS,7.3356,235,Rift Valley,Nandi,C+{plus}
+236,KOLANYA GIRLS,7.3247,236,WESTERN,Busia,C+{plus}
+237,BUKHALALIRE,7.3125,237,WESTERN,Busia,C+{plus}
+238,Kereri Girls High,7.312,238,NYANZA,Kisii,C+{plus}
+239,Nyakeore Mixed,7.302,239,NYANZA,Nyamira,C+{plus}
+240,Riooga Secondary,7.3,240,NYANZA,Kisii,C+{plus}
+241,KAPROPITA GIRLS HIGH,7.3,241,Rift Valley,Baringo,C+{plus}
+242,Riyabe Secondary,7.291,242,NYANZA,Nyamira,C+{plus}
+243,CHEPKECHEI BOYS,7.281,243,Rift Valley,Kericho,C+{plus}
+244,Itierio Girls,7.28,244,NYANZA,Kisii,C+{plus}
+245,NYABONDO BOYS,7.26,245,NYANZA,Kisumu,C+{plus}
+246,TENGECHA BOYS,7.2423,246,Rift Valley,Kericho,C+{plus}
+247,CHINGA BOYS,7.213,247,Central,Nyeri,C+{plus}
+248,Mwaani Girls,7.209,248,Eastern,Makueni,C+{plus}
+249,Saseta Girls High,7.207,249,Rift Valley,Bomet,C+{plus}
+250,AHERO GIRLS,7.2,250,NYANZA,Kisumu,C+{plus}
+251,WIRE MIXED,7.2,251,NYANZA,Homa Bay,C+{plus}
+252,DANABA MIXED,7.2,252,North Eastern,Wajir,C+{plus}
+253,FRIENDS SCHOOL KEVEYE GIRLS,7.2,253,WESTERN,Vihiga,C+{plus}
+254,Kiabonyoru Girls,7.1982,254,NYANZA,Nyamira,C+{plus}
+255,SIGALAME BOYS,7.192,255,WESTERN,Busia,C+{plus}
+256,ST ANNES BUNYALA,7.1915,256,WESTERN,Busia,C+{plus}
+257,Chesamisi High,7.186,257,WESTERN,Bungoma,C+{plus}
+258,Kaaga Boys,7.1837,258,Eastern,Meru,C+{plus}
+259,Kavingoni Secondary,7.181,259,Eastern,Makueni,C+{plus}
+260,Kisau Girls,7.165,260,Eastern,Makueni,C+{plus}
+261,Othaya Boys High,7.1445,261,Central,Nyeri,C+{plus}
+262,Machakos Girls,7.1406,262,Eastern,Machakos,C+{plus}
+263,AIC Gietai Girls,7.13,263,NYANZA,Nyamira,C+{plus}
+264,Kanjuri High School,7.1289,264,Central,Nyeri,C+{plus}
+265,Moi Kapsowar Girls,7.1282,265,Rift Valley,Elgeyo Marakwet,C+{plus}
+266,Gelegele girls,7.12,266,Rift Valley,Bomet,C+{plus}
+267,Makueni Girls,7.102,267,Eastern,Makueni,C+{plus}
+268,KAMAGAMBO ADVENTIST,7.1,268,NYANZA,Migori,C+{plus}
+269,MOI GIRLS VOKOLI,7.1,269,WESTERN,Vihiga,C+{plus}
+270,Bahari Girls,7.0947,270,Coast,Kilifi,C+{plus}
+271,TEREMI HIGH SCHOOL,7.09,271,WESTERN,Bungoma,C+{plus}
+272,St Mathias Mulumba Girls,7.078,272,NYANZA,Nyamira,C+{plus}
+273,Kaumoni Boys,7.065,273,Eastern,Makueni,C+{plus}
+274,Moi Girls Sindo,7.063,274,NYANZA,Homa Bay,C+{plus}
+275,SHIMPIR SECONDARY,7.06,275,North Eastern,MANDERA,C+{plus}
+276,BUTIYE MIXED SECONDARY,7.059,276,North Eastern,Marsabit,C+{plus}
+277,Ibacho High,7.053,277,NYANZA,Kisii,C+{plus}
+278,KARONDILLE SECONDARY SCHOOL,7.05,278,North Eastern,Marsabit,C+{plus}
+279,THE KITONDO SCHOOL,7.04,279,Eastern,Makueni,C+{plus}
+280,Kitondo school,7.04,280,Eastern,Makueni,C+{plus}
+281,EMINING HIGH SCHOOL,7.03,281,Rift Valley,Baringo,C+{plus}
+282,Nyamagwa Boys,7.0269,282,NYANZA,Kisii,C+{plus}
+283,OUR Lady of Assumption tawa,7.02,283,Eastern,Makueni,C+{plus}
+284,KERICHO HIGH,7.017,284,Rift Valley,Kericho,C+{plus}
+285,KIMULOT BOYS HIGH,7.005,285,Rift Valley,Bomet,C+{plus}
+286,Ichuni girls,7,286,NYANZA,Kisii,C+{plus}
+287,CHEBUYUSI HIGH,7,287,WESTERN,Kakamega,C+{plus}
+288,SHEIKH ALI SECONDARY,6.99,288,North Eastern,MANDERA,C+{plus}
+289,MOI GIRLS MARSABIT,6.988,289,North Eastern,Marsabit,C+{plus}
+290,Gikurune Boys,6.987,290,Eastern,Meru,C+{plus}
+291,Kabaa High,6.98,291,Eastern,Machakos,C+{plus}
+292,SAMBIRIR GIRLS,6.97,292,Rift Valley,Elgeyo Marakwet,C+{plus}
+293,Maua Girls High,6.96,293,Eastern,Meru,C+{plus}
+294,OYUGI OGANGO SECONDARY,6.9593,294,NYANZA,Migori,C+{plus}
+295,ST ANGELAS GIRLS SECONDARY,6.935,295,Eastern,Kitui,C+{plus}
+296,VIHIGA BOYS,6.89,296,WESTERN,Vihiga,C+{plus}
+297,ALGANI GIRLS,6.80357,297,North Eastern,ISIOLO,C+{plus}
+298,BANISA MIXED SECONDARY,6.77,298,North Eastern,MANDERA,C+{plus}
+299,BELGUT STAREHE GIRLS HIGH,6.742,299,Rift Valley,Kericho,C+{plus}
+300,MAGUNGA SECONDARY,6.73,300,NYANZA,KISUMU,C+{plus}
+301,Heni Secondary,6.695,301,Central,Nyandarua,C+{plus}
+302,EMUSIRE HIGH SCHOOL,6.616,302,WESTERN,Vihiga,C+{plus}
+303,KOIWA BOYS,6.6,303,Rift Valley,Bomet,C+{plus}
+304,SOUTH TETU GIRLS,6.599,304,Central,Nyeri,C+{plus}
+305,CHWELE SECONDARY,6.5966,305,WESTERN,Bungoma,C+{plus}
+306,CHEBUKAKA SECONDARY,6.5865,306,WESTERN,Bungoma,C+{plus}
+307,ATUNDO KIMAETI SECONDARY,6.578,307,WESTERN,Bungoma,C+{plus}
+308,KAMUNGEI SECONDARY,6.56,308,Rift Valley,Bomet,C+{plus}
+309,Nyakach Girls,6.5574,309,NYANZA,KISUMU,C+{plus}
+310,SINGORE GIRLS,6.54,310,Rift Valley,Elgeyo Marakwet,C+{plus}
+311,ST LUKES’,6.516,311,WESTERN,Bungoma,C+{plus}
+312,NANGINA GIRLS,6.5054,312,WESTERN,Busia,C+{plus}
+313,MBOONI BOYS HIGH,6.5,313,Eastern,Makueni,#VALUE!
+314,KATHEKA BOYS SECONDARY,6.4818,314,Eastern,Kitui,C (plain)
+315,Mpeketoni Boys High school,6.46,315,Coast,LAMU,C (plain)
+316,MASINGA BOYS HIGH,6.455,316,Eastern,Machakos,C (plain)
+317,NDARAWETA GIRLS,6.45,317,Rift Valley,Bomet,C (plain)
+318,KOLOWA HIGH SCHOOL,6.425,318,Rift Valley,Baringo,C (plain)
+319,NAMWANGA GIRLS,6.425,319,WESTERN,Bungoma,C (plain)
+320,LORNA LABOSO SECONDARY,6.4,320,Rift Valley,Bomet,C (plain)
+321,Sengera Manga,6.3736,321,NYANZA,Nyamira,C (plain)
+322,Burieruri Secondary,6.36,322,Eastern,Meru,C (plain)
+323,ST PATRICKS NAITIRI,6.3488,323,WESTERN,Bungoma,C (plain)
+324,MOI GIRLS KAMUSINGA,6.338,324,WESTERN,Bungoma,C (plain)
+325,Ngoron high School,6.33,325,Rift Valley,Baringo,C (plain)
+326,Mwaghogho Boys School,6.3,326,Coast,Taita Taveta,C (plain)
+327,ST MONICAS GIRLS,6.3,327,Rift Valley,Tranz Nzoia,C (plain)
+328,NKARETA SECONDARY,6.2889,328,Rift Valley,NAROK,C (plain)
+329,SIVILIE SECONDARY,6.2669,329,WESTERN,Kakamega,C (plain)
+330,CHEBONEI SECONDARY,6.26,330,Rift Valley,Bomet,C (plain)
+331,CHEPTENYE BOYS,6.2359,331,Rift Valley,Kericho,C (plain)
+332,MOI MINARIET SECONDARY,6.231,332,Rift Valley,Bomet,C (plain)
+333,ST PETERS GIRLS,6.227,333,Rift Valley,Baringo,C (plain)
+334,TENGES BOYS HIGH SCHOOL,6.2186,334,Rift Valley,Baringo,C (plain)
+335,SERICHO SECONDARY,6.21,335,North Eastern,ISIOLO,C (plain)
+336,MUNDIKA BOYS,6.208,336,WESTERN,Busia,C (plain)
+337,Oriwo Boys,6.2,337,NYANZA,Homa Bay,C (plain)
+338,Kwale Girls High school,6.1825,338,Coast,Kwale,C (plain)
+339,KAMUREITO SECONDARY,6.168,339,Rift Valley,Bomet,C (plain)
+340,KAPSANGARU SECONDARY,6.1667,340,Rift Valley,Bomet,C (plain)
+341,ST MARY’S KITANY BOYS,6.1603,341,Rift Valley,Elgeyo Marakwet,C (plain)
+342,KITANY BOYS,6.16,342,Rift Valley,Elgeyo Marakwet,C (plain)
+343,ST TERESAS KABULA,6.15,343,WESTERN,Bungoma,C (plain)
+344,SOSIOT GIRLS,6.1083,344,Rift Valley,Kericho,C (plain)
+345,Kuoyo Kochia Secondary,6.1,345,NYANZA,Homa Bay,C (plain)
+346,KWHILARE,6.087,346,WESTERN,Busia,C (plain)
+347,TAMBACH BOYS HIGH SCHOOL,6.082,347,Rift Valley,Elgeyo Marakwet,C (plain)
+348,LELU SECONDARY,6.0792,348,Rift Valley,Kericho,C (plain)
+349,LELU SECONDARY,6.0792,349,Rift Valley,Kericho,C (plain)
+350,Makairo Secondary,6.0615,350,NYANZA,Nyamira,C (plain)
+351,KAPTEBENGWO SECONDARY,6,351,Rift Valley,Kericho,C (plain)
+352,BUKULUNYA SECONDARY,6,352,WESTERN,Vihiga,C (plain)
+353,BURU BOYS HIGH SCHOOL,6,353,North Eastern,MANDERA,C (plain)
+354,PEMWANI GIRLS,6,354,Rift Valley,Baringo,C (plain)
+355,FRIENDS SCHOOL MISANGA,6,355,WESTERN,Bungoma,C (plain)
+356,KAPSOKWONY,6,356,WESTERN,Bungoma,C (plain)
+357,KAPSOGUT BOYS,6,357,Rift Valley,Kericho,C (plain)
+358,KIRIBA INTERGRATED,5.94,358,Rift Valley,Bomet,C (plain)
+359,LEKIMBO SECONDARY,5.94,359,Rift Valley,Bomet,C (plain)
+360,ST MONICA CHAKOL,5.927,360,WESTERN,Busia,C (plain)
+361,LONGISA BOYS,5.9,361,Rift Valley,Bomet,C (plain)
+362,Nyabigena Boys,5.88502,362,NYANZA,Kisii,C (plain)
+363,St Gregory Obanga Mixed,5.8811,363,NYANZA,Homa Bay,C (plain)
+364,NAMIRAMA GIRLS,5.865,364,WESTERN,Kakamega,C (plain)
+365,ST JOSEPH KOCHOLIA,5.86,365,WESTERN,Busia,C (plain)
+366,CHELILIS GIRLS,5.8258,366,Rift Valley,Kericho,C (plain)
+367,LUORA SECONDARY,5.8209,367,NYANZA,Homa Bay,C (plain)
+368,KAPSOWAR BOYS,5.81,368,Rift Valley,Elgeyo Marakwet,C (plain)
+369,KABARTEGAN BOYS,5.81,369,Rift Valley,Kericho,C (plain)
+370,Ngoto Secondary,5.8,370,Eastern,Makueni,C (plain)
+371,MERCY GIRLS,5.8,371,Rift Valley,Baringo,C (plain)
+372,BURU GIRLS,5.77,372,North Eastern,MANDERA,C (plain)
+373,FRIENDS SCHOOL SENENDE,5.769,373,Rift Valley,Baringo,C (plain)
+374,MEISORI SECONDARY,5.74,374,Rift Valley,Baringo,C (plain)
+375,KIPCHERERE DAY,5.738,375,Rift Valley,Baringo,C (plain)
+376,BUDALANGI SECONDARY,5.72,376,WESTERN,Busia,C (plain)
+377,MAGIRE SECONDARY,5.72,377,Rift Valley,Kericho,C (plain)
+378,Kinango Boys Secondary,5.7143,378,Coast,Kwale,C (plain)
+379,SACRED HILL GIRLS,5.702,379,Rift Valley,Kericho,C (plain)
+380,MURRAY GIRLS,5.7,380,Coast,Taita Taveta,C (plain)
+381,CHEBUNYO GIRLS,5.7,381,Rift Valley,Bomet,C (plain)
+382,KIMOBO SECONDARY,5.7,382,WESTERN,Bungoma,C (plain)
+383,St Peters Voo Secondary,5.667,383,Eastern,Kitui,C (plain)
+384,Malava Boys,5.66,384,WESTERN,Kakamega,C (plain)
+385,SENETWO DAY,5.653,385,Rift Valley,Baringo,C (plain)
+386,BOKOLI BOYS,5.64,386,WESTERN,Bungoma,C (plain)
+387,ST MARY’S AMUKURA,5.635,387,WESTERN,Busia,C (plain)
+388,KERICHO TEA BOYS,5.6349,388,Rift Valley,Kericho,C (plain)
+389,MOGOTIO GIRLS HIGH SCHOOL,5.6284,389,Rift Valley,Baringo,C (plain)
+390,KABIANGA GIRLS,5.6036,390,Rift Valley,Kericho,C (plain)
+391,Mulala Girls,5.6,391,Eastern,Makueni,C (plain)
+392,ISHMAEL CHELANGA SECONDARY,5.6,392,Rift Valley,Elgeyo Marakwet,C (plain)
+393,ST PETERS MARAKWET BOYS,5.59,393,Rift Valley,Elgeyo Marakwet,C (plain)
+394,God Oloo Mixed,5.5815,394,NYANZA,Homa Bay,C (plain)
+395,GIAKANJA BOYS,5.58,395,Central,Nyeri,C (plain)
+396,VOI BOYS,5.57,396,Coast,Taita Taveta,C (plain)
+397,KIPSOEN BOYS,5.5,397,Rift Valley,Elgeyo Marakwet,C (plain)
+398,SIMOTWO BOYS,5.5,398,Rift Valley,Elgeyo Marakwet,C (plain)
