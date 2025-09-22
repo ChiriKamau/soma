@@ -149,3 +149,48 @@ def regression2_add(model, X, X_scaled, y, figsize=(8,5)):
     plt.tight_layout()
     plt.show()
 
+def cluster_add(result_df, figsize=(12,8)):
+    """Visualize clustering results."""
+    import matplotlib.pyplot as plt
+    county_col = result_df.columns[0]
+    
+    # Print cluster summary
+    print("CLUSTER SUMMARY")
+    print("=" * 30)
+    for cluster in sorted(result_df['Cluster'].unique()):
+        counties = result_df[result_df['Cluster'] == cluster][county_col].tolist()
+        avg_unis = result_df[result_df['Cluster'] == cluster]['University_Schools'].mean()
+        print(f"Cluster {cluster} ({len(counties)} counties): {', '.join(counties[:5])}")
+        print(f"  Avg Universities: {avg_unis:.1f}\n")
+    
+    # Visualizations
+    colors = ['red', 'blue', 'green', 'orange']
+    plt.figure(figsize=figsize)
+    
+    plt.subplot(2,2,1)
+    for cluster in sorted(result_df['Cluster'].unique()):
+        data = result_df[result_df['Cluster'] == cluster]
+        plt.scatter(data['University_Schools'], data['University_People'], 
+                   c=colors[cluster], label=f'Cluster {cluster}', alpha=0.7)
+    plt.xlabel('University Schools'); plt.ylabel('University People')
+    plt.title('Universities vs University Population'); plt.legend()
+    
+    plt.subplot(2,2,2)
+    for cluster in sorted(result_df['Cluster'].unique()):
+        data = result_df[result_df['Cluster'] == cluster]
+        plt.scatter(data['Primary_Schools'], data['Secondary_Schools'], 
+                   c=colors[cluster], label=f'Cluster {cluster}', alpha=0.7)
+    plt.xlabel('Primary Schools'); plt.ylabel('Secondary Schools')
+    plt.title('Primary vs Secondary Schools'); plt.legend()
+    
+    plt.subplot(2,2,3)
+    cluster_means = result_df.groupby('Cluster')[["Primary_People", "Secondary_People", "University_People"]].mean()
+    cluster_means.plot(kind='bar', ax=plt.gca())
+    plt.title('Education Levels by Cluster'); plt.ylabel('Population'); plt.xticks(rotation=0)
+    
+    plt.subplot(2,2,4)
+    cluster_counts = result_df['Cluster'].value_counts().sort_index()
+    plt.pie(cluster_counts.values, labels=[f'Cluster {i}' for i in cluster_counts.index], autopct='%1.1f%%')
+    plt.title('County Distribution')
+    
+    plt.tight_layout(); plt.show()

@@ -245,3 +245,20 @@ def regression2_ass(level_school_df):
     
     X_scaled = StandardScaler().fit_transform(X)
     return X, X_scaled, y
+
+def cluster_ass(level_school_df, n_clusters=4):
+    """Prepare data for clustering analysis."""
+    from sklearn.cluster import KMeans
+    from sklearn.preprocessing import StandardScaler
+    
+    features = ["Primary_Schools", "Secondary_Schools", "TVET_Schools", "University_Schools",
+               "Primary_People", "Secondary_People", "Technical_and_Vocational_Training_TVET_People", "University_People"]
+    
+    X = level_school_df[features].fillna(0)
+    X_scaled = StandardScaler().fit_transform(X)
+    
+    clusters = KMeans(n_clusters=n_clusters, random_state=42).fit_predict(X_scaled)
+    result_df = level_school_df.copy()
+    result_df['Cluster'] = clusters
+    
+    return result_df
