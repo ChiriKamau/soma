@@ -46,3 +46,17 @@ def secondary_acs(url_high_schools: str, url_secondary: str) -> pd.DataFrame:
     df_secondary["County"] = df_secondary["County"].str.upper()
     
     return df_high.copy(), df_secondary.copy()
+
+
+def univ_tvet_acs(url_univ: str, url_tvet: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Load both universities and TVET institutions CSVs.
+    Returns two DataFrames: (universities, tvets)
+    """
+    df_univ = pd.read_csv(url_univ)
+    df_univ['County'] = df_univ['County'].str.upper().str.strip()
+    
+    df_tvet = pd.read_csv(url_tvet)
+    df_tvet['County'] = df_tvet['County'].str.upper().str.strip()
+    
+    return df_univ, df_tvet

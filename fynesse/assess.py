@@ -140,3 +140,20 @@ def secondary_ass(df_high, df_secondary, counties: list):
     combined = combined.sort_values("County").reset_index(drop=True)
     
     return combined
+
+def univ_tvet_ass(df_univ: pd.DataFrame, df_tvet: pd.DataFrame, counties: list) -> tuple[pd.Series, pd.Series]:
+    """
+    Count universities and TVET institutions per county.
+    Returns two Series with counts.
+    """
+    # Universities
+    df_univ = df_univ[df_univ['County'].isin([c.upper() for c in counties])]
+    univ_counts = df_univ['County'].value_counts()
+    univ_counts = univ_counts.reindex([c.upper() for c in counties], fill_value=0)
+    
+    # TVET institutions
+    df_tvet = df_tvet[df_tvet['County'].isin([c.upper() for c in counties])]
+    tvet_counts = df_tvet['County'].value_counts()
+    tvet_counts = tvet_counts.reindex([c.upper() for c in counties], fill_value=0)
+    
+    return univ_counts, tvet_counts

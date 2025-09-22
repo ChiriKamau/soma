@@ -126,3 +126,26 @@ def secondary_add(df_county, county_col="County", figsize=(18,8)):
     plt.legend(title="Category")
     plt.tight_layout()
     plt.show()
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+def univ_tvet_add(univ_counts, tvet_counts, figsize=(15,6)):
+    """
+    Plot combined bar chart of universities and TVET institutions per county.
+    """
+    counties = univ_counts.index.tolist()
+    x = np.arange(len(counties))
+    width = 0.4
+
+    plt.figure(figsize=figsize)
+    plt.bar(x - width/2, univ_counts.values, width=width, label='Universities', color='skyblue')
+    plt.bar(x + width/2, tvet_counts.values, width=width, label='TVET Institutions', color='lightgreen')
+
+    plt.xticks(x, counties, rotation=90)
+    plt.ylabel("Number of Institutions")
+    plt.title("Universities and TVET Institutions per County")
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
