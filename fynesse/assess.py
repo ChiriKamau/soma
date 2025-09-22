@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-  
+from sklearn.linear_model import LinearRegression
     
 
 # Global counties list
@@ -214,8 +214,7 @@ def prepare_regression_data(level_school_df, county_secondary):
 
 def run_tvet_regression(level_school_df, county_secondary):
     """Run regression analysis for TVET institutions."""
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.linear_model import LinearRegression
+
     
     secondary_features = county_secondary[["County", "National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].copy()
     regression_df = level_school_df.merge(secondary_features, left_on=level_school_df.columns[0], right_on="County", how="left")
@@ -229,7 +228,9 @@ def run_tvet_regression(level_school_df, county_secondary):
 
 def regression2_ass(level_school_df):
     """Prepare data for education level regression analysis."""
-
+    from sklearn.preprocessing import StandardScaler
+    import pandas as pd
+    
     X = pd.DataFrame({
         "Primary_Schools": level_school_df["Primary_Schools"],
         "Secondary_Schools": level_school_df["Secondary_Schools"],
