@@ -44,7 +44,7 @@ def population_ass(df: pd.DataFrame, min_age: int = 4, max_age: int = 20) -> pd.
     county_pop = county_pop.sort_values(by="ewcounty").reset_index(drop=True)
     return county_pop
 
-def education_ass(df: pd.DataFrame, counties: list) -> pd.DataFrame:
+def education_ass(df: pd.DataFrame, counties: list = counties_list):
     """
     Filter education data for the main counties and clean numeric columns.
     """
@@ -68,6 +68,7 @@ def education_ass(df: pd.DataFrame, counties: list) -> pd.DataFrame:
     # Sort alphabetically
     df_county = df_county.sort_values(by=df.columns[0]).reset_index(drop=True)
     return df_county
+
 
 def schools_ass(df: pd.DataFrame, counties: list) -> pd.DataFrame:
     """
