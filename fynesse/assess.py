@@ -1,4 +1,7 @@
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
+  
+    
 
 # Global counties list
 counties_list = [
@@ -223,28 +226,22 @@ def run_tvet_regression(level_school_df, county_secondary):
     model = LinearRegression().fit(X_scaled, y)
     return model, X, X_scaled, y
 
-def regression2_ass(level_school_df, county_secondary, target):
-    """Prepare data for any regression analysis."""
-    from sklearn.preprocessing import StandardScaler
-    import pandas as pd
+
+def regression2_ass(level_school_df):
+    """Prepare data for education level regression analysis."""
+
+    X = pd.DataFrame({
+        "Primary_Schools": level_school_df["Primary_Schools"],
+        "Secondary_Schools": level_school_df["Secondary_Schools"],
+        "TVET_Schools": level_school_df["TVET_Schools"],
+        "University_Schools": level_school_df["University_Schools"]
+    })
     
-    if target in ["University_People", "TVET_Schools"]:
-        # For university and TVET models - use secondary school features
-        secondary_features = county_secondary[["County", "National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].copy()
-        regression_df = level_school_df.merge(secondary_features, left_on=level_school_df.columns[0], right_on="County", how="left")
-        X = regression_df[["National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].fillna(0)
-        y = regression_df[target]
-    else:
-        # For education level model - use school counts as features
-        X = pd.DataFrame({
-            "Primary_Schools": level_school_df["Primary_Schools"],
-            "Secondary_Schools": level_school_df["Secondary_Schools"], 
-            "TVET_Schools": level_school_df["TVET_Schools"],
-            "University_Schools": level_school_df["University_Schools"]
-        })
-        y = (level_school_df["Pre-Primary_People"] * 1 + level_school_df["Primary_People"] * 2 + 
-             level_school_df["Secondary_People"] * 3 + level_school_df["Technical_and_Vocational_Training_TVET_People"] * 4 + 
-             level_school_df["University_People"] * 5)
+    y = (level_school_df["Pre-Primary_People"] * 1 +
+         level_school_df["Primary_People"] * 2 +
+         level_school_df["Secondary_People"] * 3 +
+         level_school_df["Technical_and_Vocational_Training_TVET_People"] * 4 +
+         level_school_df["University_People"] * 5)
     
     X_scaled = StandardScaler().fit_transform(X)
     return X, X_scaled, y

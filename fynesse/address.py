@@ -127,20 +127,24 @@ def tvet_regression_add(model, X, X_scaled, y, figsize=(8,5)):
     plt.tight_layout()
     plt.show()
 
-def regression2_add(model, X, X_scaled, y, title, color, figsize=(8,5)):
-    """Plot regression results with coefficients."""
+def regression2_add(model, X, X_scaled, y, figsize=(8,5)):
+    """Plot education level regression results."""
     import matplotlib.pyplot as plt
     
-    coeff_df = pd.DataFrame({"School_Category": X.columns, "Coefficient": model.coef_}).sort_values(by="Coefficient", ascending=False)
-    print(f"Coefficients for {title}:")
+    coeff_df = pd.DataFrame({
+        "School_Category": X.columns,
+        "Coefficient": model.coef_
+    }).sort_values(by="Coefficient", ascending=False)
+    
+    print("Coefficients (effect of school category on education level):")
     print(coeff_df)
-    print(f"R^2 score: {model.score(X_scaled, y)}\n")
+    print(f"\nR^2 score: {model.score(X_scaled, y)}")
     
     plt.figure(figsize=figsize)
-    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color=color)
-    plt.ylabel("Coefficient")
+    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="mediumpurple")
+    plt.ylabel("Coefficient (Effect on Education Level)")
     plt.xlabel("School Category")
-    plt.title(title)
+    plt.title("Impact of Number of Schools per Category on County Education Level")
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
