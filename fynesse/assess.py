@@ -80,3 +80,63 @@ def schools_ass(df: pd.DataFrame, counties: list) -> pd.DataFrame:
     df_county = df_county.sort_values(df.columns[0]).reset_index(drop=True)
     
     return df_county
+
+def secondary_ass(df_high, df_secondary, counties: list):
+    """
+    Process high school categories and merge with private secondary school counts.
+    Returns a combined dataframe.
+    """
+    # County KNEC codes
+    county_map = {
+        "01": "TAITA-TAVETA", "02": "KWALE", "03": "MOMBASA", "04": "KILIFI", "05": "LAMU",
+        "06": "TANA RIVER", "07": "NYANDARUA", "08": "NYERI", "09": "KIRINYAGA", "10": "MURANGA",
+        "11": "KIAMBU", "12": "MACHAKOS", "13": "KITUI", "14": "EMBU", "15": "MERU",
+        "16": "THARAKA-NITHI", "17": "ISIOLO", "18": "MAKUENI", "19": "THARAKA", "20": "NAIROBI",
+        "21": "TURKANA", "22": "WEST POKOT", "23": "SAMBURU", "24": "TRANS NZOIA", "25": "UASIN GISHU",
+        "26": "ELGEYO-MARAKWET", "27": "NANDI", "28": "BARINGO", "29": "LAIKIPIA", "30": "NAROK",
+        "31": "KAJIADO", "32": "KERICHO", "33": "BOMET", "34": "KAKAMEGA", "35": "VIHIGA",
+        "36": "BUNGOMA", "37": "BUSIA", "38": "SIAYA", "39": "KISUMU", "40": "HOMA BAY",
+        "41": "MIGORI", "42": "KISII", "43": "NYAMIRA", "44": "GARISSA", "45": "WAJIR",
+        "46": "MANDERA", "47": "MARSABIT"
+    }
+    
+    # Map high school counties
+    df_high["School_Code"] = df_high["School_Code"].astype(str).str.zfill(8)
+    df_high["County_Code"] = df_high["School_Code"].str[:2]
+    df_high["County"] = df_high["County_Code"].map(county_map)
+    
+    # Pivot high school categories
+    pivot = df_high.pivot_table(
+        index="County",
+        columns="Category",
+        values="School_Name",
+        aggfunc="count",
+        fill_value=0
+    )
+    pivot["Total"] = pivot.sum(axis=1)
+    
+    # Clean secondary school private counts
+    df_secondary["Private_Secondary_Schools"] = pd.to_numeric(
+        df_secondary["Private_Secondary_Schools"], errors='coerce'
+    ).fillna(0)
+    
+    df_secondary_subset = df_secondary[["County", "Private_Secondary_Schools"]]
+    
+    # Merge pivot with secondary schools
+    pivot_reset = pivot.copy()
+    pivot_reset.index.name = None
+    pivot_reset['County'] = pivot_reset.index
+    pivot_reset = pivot_reset.reset_index(drop=True)
+    
+    combined = pd.merge(pivot_reset, df_secondary_subset, on="County", how="left")
+    combined["Private_Secondary_Schools"] = combined["Private_Secondary_Schools"].fillna(0)
+    combined["Total"] = combined["Total"] + combined["Private_Secondary_Schools"]
+    
+    # Filter only main counties
+    combined = combined[combined["County"].isin([c.upper() for c in counties])]
+    
+    # Sort by counties_list
+    combined["County"] = pd.Categorical(combined["County"], categories=counties, ordered=True)
+    combined = combined.sort_values("County").reset_index(drop=True)
+    
+    return combined

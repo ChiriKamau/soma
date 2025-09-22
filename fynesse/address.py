@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import pandas as pd
 
 def attendance_add(df_county, area_col: str, school_col: str, figsize=(15, 8)):
     """
@@ -102,5 +103,26 @@ def schools_add(df_county, county_col=None, public_col="Public_Primary_Schools",
     plt.ylabel("Number of Schools")
     plt.title("Number of Primary Schools by County")
     plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+
+def secondary_add(df_county, county_col="County", figsize=(18,8)):
+    """
+    Plot stacked bar chart of high school categories + private secondary schools by county.
+    """
+    categories = [col for col in df_county.columns if col not in [county_col, "Total"]]
+    bottom = pd.Series([0]*df_county.shape[0])
+    
+    plt.figure(figsize=figsize)
+    
+    for cat in categories:
+        plt.bar(df_county[county_col], df_county[cat], bottom=bottom, label=cat)
+        bottom += df_county[cat]
+    
+    plt.xticks(rotation=90)
+    plt.ylabel("Number of Schools")
+    plt.title("Schools per County (High School Categories + Private Secondary Schools)")
+    plt.legend(title="Category")
     plt.tight_layout()
     plt.show()

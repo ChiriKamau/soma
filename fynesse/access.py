@@ -34,3 +34,15 @@ def schools_acs(url: str) -> pd.DataFrame:
     df = pd.read_csv(url)
     df[df.columns[0]] = df[df.columns[0]].str.upper()  # uppercase counties
     return df.copy()
+
+def secondary_acs(url_high_schools: str, url_secondary: str) -> pd.DataFrame:
+    """
+    Load high school and secondary school CSV data.
+    """
+    df_high = pd.read_csv(url_high_schools)
+    df_secondary = pd.read_csv(url_secondary)
+    
+    # Uppercase county names in secondary school data
+    df_secondary["County"] = df_secondary["County"].str.upper()
+    
+    return df_high.copy(), df_secondary.copy()
