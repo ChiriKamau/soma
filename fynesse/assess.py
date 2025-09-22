@@ -70,7 +70,7 @@ def education_ass(df: pd.DataFrame, counties: list = counties_list):
     return df_county
 
 
-def schools_ass(df: pd.DataFrame, counties: list) -> pd.DataFrame:
+def schools_ass(df: pd.DataFrame, counties: list = counties_list) -> pd.DataFrame:
     """
     Filter primary schools data for the main counties and sort.
     """
@@ -82,7 +82,7 @@ def schools_ass(df: pd.DataFrame, counties: list) -> pd.DataFrame:
     
     return df_county
 
-def secondary_ass(df_high, df_secondary, counties: list):
+def secondary_ass(df_high, df_secondary, counties: list = counties_list):
     """
     Process high school categories and merge with private secondary school counts.
     Returns a combined dataframe.
@@ -142,7 +142,7 @@ def secondary_ass(df_high, df_secondary, counties: list):
     
     return combined
 
-def univ_tvet_ass(df_univ: pd.DataFrame, df_tvet: pd.DataFrame, counties: list) -> tuple[pd.Series, pd.Series]:
+def univ_tvet_ass(df_univ: pd.DataFrame, df_tvet: pd.DataFrame, counties: list = counties_list) -> tuple[pd.Series, pd.Series]:
     """
     Count universities and TVET institutions per county.
     Returns two Series with counts.
