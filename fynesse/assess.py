@@ -165,20 +165,18 @@ import pandas as pd
 def correlation_ass(df: pd.DataFrame, edu_cols: list, school_cols: list, edu_labels: list) -> pd.DataFrame:
     """
     Compute correlation matrix between population per education level and number of schools per level.
+    Automatically handles slight column name mismatches.
     """
-    # Ensure correct column names
-    df = df.rename(columns={
-        "Pre-Primary": "Primary_People",
-        "Primary": "Primary_People",
-        "Secondary": "Secondary_People",
-        "Technical and Vocational Training (TVET)": "Technical_and_Vocational_Training_TVET_People",
-        "University": "University_People"
-    })
-    
-    # Compute correlation matrix
+    # Clean column names
+    df = df.rename(columns=lambda x: x.strip().replace(" ", "_").replace("-", "_"))
+
+    # Compute correlation
     corr_matrix = pd.DataFrame(index=edu_labels, columns=edu_labels)
     for i, edu in enumerate(edu_cols):
         for j, school in enumerate(school_cols):
-            corr_matrix.iloc[i, j] = df[edu].corr(df[school])
-    
+            if edu in df.columns and school in df.columns:
+                corr_matrix.iloc[i, j] = df[edu].corr(df[school])
+            else:
+                corr_matrix.iloc[i, j] = float('nan')  # mark missing columns
     return corr_matrix.astype(float)
+
