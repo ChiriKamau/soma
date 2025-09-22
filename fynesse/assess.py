@@ -168,7 +168,7 @@ def correlation_ass(df: pd.DataFrame, edu_cols: list, school_cols: list, edu_lab
     """
     # Ensure correct column names
     df = df.rename(columns={
-        "Pre-Primary": "Pre-Primary_People",
+        "Pre-Primary": "Primary_People",
         "Primary": "Primary_People",
         "Secondary": "Secondary_People",
         "Technical and Vocational Training (TVET)": "Technical_and_Vocational_Training_TVET_People",
