@@ -160,14 +160,25 @@ def univ_tvet_ass(df_univ: pd.DataFrame, df_tvet: pd.DataFrame, counties: list =
     return univ_counts, tvet_counts
 
 
-def correlation_ass(level_school_df: pd.DataFrame, edu_cols: list, school_cols: list, edu_labels: list) -> pd.DataFrame:
-    """
-    Computes full correlation matrix between population per education level and schools per level.
-    """
-    corr_matrix = pd.DataFrame(index=edu_labels, columns=edu_labels)
+import pandas as pd
 
+def correlation_ass(df: pd.DataFrame, edu_cols: list, school_cols: list, edu_labels: list) -> pd.DataFrame:
+    """
+    Compute correlation matrix between population per education level and number of schools per level.
+    """
+    # Ensure correct column names
+    df = df.rename(columns={
+        "Pre-Primary": "Pre-Primary_People",
+        "Primary": "Primary_People",
+        "Secondary": "Secondary_People",
+        "Technical and Vocational Training (TVET)": "Technical_and_Vocational_Training_TVET_People",
+        "University": "University_People"
+    })
+    
+    # Compute correlation matrix
+    corr_matrix = pd.DataFrame(index=edu_labels, columns=edu_labels)
     for i, edu in enumerate(edu_cols):
         for j, school in enumerate(school_cols):
-            corr_matrix.iloc[i, j] = level_school_df[edu].corr(level_school_df[school])
-
+            corr_matrix.iloc[i, j] = df[edu].corr(df[school])
+    
     return corr_matrix.astype(float)
