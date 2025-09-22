@@ -55,3 +55,33 @@ def population_vs_attendance(county_pop, county_att, pop_col="Total", att_col=No
     plt.tight_layout()
     plt.show()
 
+def education_add(df_county, county_col=None, figsize=(18, 8)):
+    """
+    Plot stacked bar chart of education levels by county.
+    """
+    if county_col is None:
+        county_col = df_county.columns[0]
+    
+    edu_columns = [
+        "Pre-Primary",
+        "Primary",
+        "Secondary",
+        "Technical and Vocational Training (TVET)",
+        "University"
+    ]
+    
+    x = df_county[county_col]
+    
+    plt.figure(figsize=figsize)
+    bottom = 0
+    for col in edu_columns:
+        plt.bar(x, df_county[col], bottom=bottom, label=col)
+        bottom += df_county[col]
+    
+    plt.xticks(rotation=90)
+    plt.ylabel("Number of People")
+    plt.title("Education Levels by County (2019 Census)")
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
