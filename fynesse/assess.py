@@ -160,16 +160,41 @@ def univ_tvet_ass(df_univ: pd.DataFrame, df_tvet: pd.DataFrame, counties: list =
     return univ_counts, tvet_counts
 
 
-
 def combine_correlation_data(county_edu, county_schools, county_secondary, univ_counts, tvet_counts):
-    """Combine all datasets for correlation analysis."""
+    """Combine all datasets for correlation analysis with proper alignment."""
+    # Start with education data as base
     df = county_edu.copy()
-    df['Primary_Schools'] = county_schools['Public_Primary_Schools'] + county_schools['Private_Primary_Schools']
-    df['Secondary_Schools'] = county_secondary['Total']
-    df['TVET_Schools'] = tvet_counts.values
-    df['University_Schools'] = univ_counts.values
+    county_col = df.columns[0]
+    
+    # Get county names from base dataframe
+    base_counties = df[county_col].values
+    
+    # Add primary schools (align by county name)
+    primary_data = county_schools.copy()
+    primary_col = primary_data.columns[0]
+    
+    # Merge primary schools data
+    df = df.merge(primary_data[[primary_col, 'Public_Primary_Schools', 'Private_Primary_Schools']], 
+                  left_on=county_col, right_on=primary_col, how='left')
+    df['Primary_Schools'] = df['Public_Primary_Schools'].fillna(0) + df['Private_Primary_Schools'].fillna(0)
+    df.drop([primary_col, 'Public_Primary_Schools', 'Private_Primary_Schools'], axis=1, inplace=True)
+    
+    # Add secondary schools (align by county name)
+    secondary_data = county_secondary[['County', 'Total']].copy()
+    df = df.merge(secondary_data, left_on=county_col, right_on='County', how='left')
+    df['Secondary_Schools'] = df['Total'].fillna(0)
+    df.drop(['County', 'Total'], axis=1, inplace=True)
+    
+    # Add TVET and University data (reindex to match base counties)
+    tvet_aligned = tvet_counts.reindex(base_counties, fill_value=0)
+    univ_aligned = univ_counts.reindex(base_counties, fill_value=0)
+    
+    df['TVET_Schools'] = tvet_aligned.values
+    df['University_Schools'] = univ_aligned.values
+    
+    # Rename education columns
     df.rename(columns={'Primary': 'Primary_People', 'Secondary': 'Secondary_People', 
                        'Technical and Vocational Training (TVET)': 'Technical_and_Vocational_Training_TVET_People',
                        'University': 'University_People'}, inplace=True)
+    
     return df
-
