@@ -79,3 +79,31 @@ def correlation_add(level_school_df, figsize=(10,6)):
     plt.xlabel("Schools per Level"); plt.ylabel("Population per Education Level")
     plt.title("Correlation between Education Level Population and Number of Schools per Level")
     plt.tight_layout(); plt.show()
+
+def regression_add(model, X, X_scaled, y, figsize=(8,5)):
+    """Plot regression model results - coefficients and predicted vs actual."""
+    coeff_df = pd.DataFrame({
+        "School_Category": X.columns,
+        "Coefficient": model.coef_
+    }).sort_values(by="Coefficient", ascending=False)
+    
+    plt.figure(figsize=figsize)
+    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="skyblue")
+    plt.title("Impact of Secondary School Category on University Population")
+    plt.ylabel("Coefficient (Effect on University Population)")
+    plt.xlabel("Secondary School Category")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+    
+    # Predicted vs Actual plot
+    y_pred = model.predict(X_scaled)
+    
+    plt.figure(figsize=figsize)
+    plt.scatter(y, y_pred, color="salmon")
+    plt.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=2)
+    plt.xlabel("Actual University Population")
+    plt.ylabel("Predicted University Population")
+    plt.title("Predicted vs Actual University Population by County")
+    plt.tight_layout()
+    plt.show()
