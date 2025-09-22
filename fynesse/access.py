@@ -60,3 +60,27 @@ def univ_tvet_acs(url_univ: str, url_tvet: str) -> tuple[pd.DataFrame, pd.DataFr
     df_tvet['County'] = df_tvet['County'].str.upper().str.strip()
     
     return df_univ, df_tvet
+
+
+def correlation_acs(level_school_df: pd.DataFrame) -> tuple[list, list, list]:
+    """
+    Prepares labels and columns for correlation analysis between education population and schools.
+    Returns edu_cols, school_cols, edu_labels.
+    """
+    edu_cols = [
+        "Pre-Primary_People",
+        "Primary_People",
+        "Secondary_People",
+        "Technical_and_Vocational_Training_TVET_People",
+        "University_People"
+    ]
+    school_cols = [
+        "Primary_Schools",
+        "Primary_Schools",
+        "Secondary_Schools",
+        "TVET_Schools",
+        "University_Schools"
+    ]
+    edu_labels = ["Pre-Primary", "Primary", "Secondary", "TVET", "University"]
+
+    return edu_cols, school_cols, edu_labels

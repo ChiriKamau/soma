@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 
 def attendance_add(df, area_col, school_col, figsize=(15,8)):
     plt.figure(figsize=figsize)
@@ -57,3 +58,16 @@ def univ_tvet_add(univ_counts, tvet_counts, figsize=(15,6)):
     plt.xticks(x, univ_counts.index, rotation=90)
     plt.ylabel("Number of Institutions"); plt.title("Universities and TVET Institutions per County")
     plt.legend(); plt.tight_layout(); plt.show()
+
+
+def correlation_add(corr_matrix: pd.DataFrame, figsize=(8,6)):
+    """
+    Plots a heatmap of the correlation matrix.
+    """
+    plt.figure(figsize=figsize)
+    sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", vmin=-1, vmax=1)
+    plt.xlabel("Schools per Level")
+    plt.ylabel("Population per Education Level")
+    plt.title("Correlation between Education Level Population and Number of Schools per Level (Full Matrix)")
+    plt.tight_layout()
+    plt.show()
