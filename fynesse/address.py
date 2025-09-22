@@ -23,3 +23,35 @@ def population_add(df_county, county_col: str = "ewcounty", total_col: str = "To
     plt.title(f'Population by County')
     plt.tight_layout()
     plt.show() 
+
+    def population_vs_attendance(county_pop, county_att, pop_col="Total", att_col=None, figsize=(18,6)):
+    """
+    Plot population (under 20) vs school attendance side by side for all counties.
+    
+    Parameters:
+        county_pop (DataFrame): population data from population_ass()
+        county_att (DataFrame): attendance data from attendance_ass()
+        pop_col (str): column name for population numbers in county_pop
+        att_col (str): column name for attendance numbers in county_att
+        figsize (tuple): figure size
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    if att_col is None:
+        att_col = county_att.columns[2]  # default: 3rd column from attendance_ass
+
+    x = np.arange(len(county_pop))  # positions
+    width = 0.4
+
+    plt.figure(figsize=figsize)
+    plt.bar(x - width/2, county_pop[pop_col], width=width, color='lightgreen', label='Population Under 20')
+    plt.bar(x + width/2, county_att[att_col], width=width, color='skyblue', label='People in School')
+
+    plt.xticks(x, county_pop[county_pop.columns[0]], rotation=90)
+    plt.ylabel("Number of People")
+    plt.title("Population Under 20 vs School Attendance by County")
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
