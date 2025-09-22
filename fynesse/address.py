@@ -85,3 +85,22 @@ def education_add(df_county, county_col=None, figsize=(18, 8)):
     plt.tight_layout()
     plt.show()
 
+def schools_add(df_county, county_col=None, public_col="Public_Primary_Schools", private_col="Private_Primary_Schools", figsize=(18,8)):
+    """
+    Plot stacked bar chart of public vs private primary schools by county.
+    """
+    if county_col is None:
+        county_col = df_county.columns[0]
+    
+    x = df_county[county_col]
+    
+    plt.figure(figsize=figsize)
+    plt.bar(x, df_county[public_col], label="Public", color="skyblue")
+    plt.bar(x, df_county[private_col], bottom=df_county[public_col], label="Private", color="salmon")
+    
+    plt.xticks(rotation=90)
+    plt.ylabel("Number of Schools")
+    plt.title("Number of Primary Schools by County")
+    plt.legend()
+    plt.tight_layout()
+    plt.show()

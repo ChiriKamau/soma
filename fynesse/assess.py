@@ -68,3 +68,15 @@ def education_ass(df: pd.DataFrame, counties: list) -> pd.DataFrame:
     # Sort alphabetically
     df_county = df_county.sort_values(by=df.columns[0]).reset_index(drop=True)
     return df_county
+
+def schools_ass(df: pd.DataFrame, counties: list) -> pd.DataFrame:
+    """
+    Filter primary schools data for the main counties and sort.
+    """
+    df_county = df[df[df.columns[0]].isin([c.upper() for c in counties])].copy()
+    
+    # Sort by the order in counties_list
+    df_county[df.columns[0]] = pd.Categorical(df_county[df.columns[0]], categories=counties, ordered=True)
+    df_county = df_county.sort_values(df.columns[0]).reset_index(drop=True)
+    
+    return df_county

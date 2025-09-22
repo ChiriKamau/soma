@@ -26,3 +26,11 @@ def education_acs(url: str) -> pd.DataFrame:
     df = pd.read_csv(url)
     df[df.columns[0]] = df[df.columns[0]].str.upper()  # uppercase counties
     return df.copy()
+
+def schools_acs(url: str) -> pd.DataFrame:
+    """
+    Load number of primary schools CSV data.
+    """
+    df = pd.read_csv(url)
+    df[df.columns[0]] = df[df.columns[0]].str.upper()  # uppercase counties
+    return df.copy()
