@@ -22,3 +22,24 @@ def attendance_ass(df: pd.DataFrame, counties: list = counties_list) -> pd.DataF
         errors='coerce'
     )
     return df_county.sort_values(by=area_col).reset_index(drop=True), area_col, school_col
+
+def population_ass(df: pd.DataFrame, min_age: int = 4, max_age: int = 20) -> pd.DataFrame:
+    """
+    Filter population DataFrame by age range, sum by county, and match with the 47 counties.
+    
+    Returns:
+        county_pop_df (pd.DataFrame): Processed population by county, sorted alphabetically.
+    """
+    # Filter by age range
+    df_age = df[(df["Age"] >= min_age) & (df["Age"] <= max_age)]
+
+    # Sum population by county
+    county_pop = df_age.groupby("ewcounty")["Total"].sum().reset_index()
+    county_pop["ewcounty"] = county_pop["ewcounty"].str.upper()
+
+    # Filter for the 47 counties
+    county_pop = county_pop[county_pop["ewcounty"].isin(counties_list)]
+    
+    # Sort alphabetically
+    county_pop = county_pop.sort_values(by="ewcounty").reset_index(drop=True)
+    return county_pop
