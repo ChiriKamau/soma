@@ -62,16 +62,3 @@ def univ_tvet_add(univ_counts, tvet_counts, figsize=(15,6)):
     plt.legend(); plt.tight_layout(); plt.show()
 
 
-
-
-def correlation_add(corr_matrix: pd.DataFrame, figsize=(8,6)):
-    """
-    Plot heatmap of correlation matrix.
-    """
-    plt.figure(figsize=figsize)
-    sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", vmin=-1, vmax=1)
-    plt.xlabel("Schools per Level")
-    plt.ylabel("Population per Education Level")
-    plt.title("Correlation between Education Population and Number of Schools")
-    plt.tight_layout()
-    plt.show()
