@@ -238,11 +238,10 @@ def regression2_ass(level_school_df):
         "University_Schools": level_school_df["University_Schools"]
     })
     
-    y = (level_school_df["Pre-Primary_People"] * 1 +
-         level_school_df["Primary_People"] * 2 +
-         level_school_df["Secondary_People"] * 3 +
-         level_school_df["Technical_and_Vocational_Training_TVET_People"] * 4 +
-         level_school_df["University_People"] * 5)
+    y = (level_school_df["Primary_People"] * 1 +
+         level_school_df["Secondary_People"] * 2 +
+         level_school_df["Technical_and_Vocational_Training_TVET_People"] * 3 +
+         level_school_df["University_People"] * 4)
     
     X_scaled = StandardScaler().fit_transform(X)
     return X, X_scaled, y
