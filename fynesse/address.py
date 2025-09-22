@@ -107,3 +107,22 @@ def regression_add(model, X, X_scaled, y, figsize=(8,5)):
     plt.title("Predicted vs Actual University Population by County")
     plt.tight_layout()
     plt.show()
+
+def tvet_regression_add(model, X, X_scaled, y, figsize=(8,5)):
+    """Plot TVET regression results."""
+    import matplotlib.pyplot as plt
+    
+    coeff_df = pd.DataFrame({"School_Category": X.columns, "Coefficient": model.coef_}).sort_values(by="Coefficient", ascending=False)
+    
+    print("Coefficients for TVET model:")
+    print(coeff_df)
+    print(f"\nR^2 score: {model.score(X_scaled, y)}")
+    
+    plt.figure(figsize=figsize)
+    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="lightgreen")
+    plt.title("Impact of Secondary School Category on TVET Institutions")
+    plt.ylabel("Coefficient (Effect on TVET Institutions)")
+    plt.xlabel("Secondary School Category")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()

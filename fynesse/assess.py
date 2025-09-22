@@ -208,3 +208,17 @@ def prepare_regression_data(level_school_df, county_secondary):
     X = regression_df[["National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].fillna(0)
     y = regression_df["University_People"]
     return X, y
+
+def run_tvet_regression(level_school_df, county_secondary):
+    """Run regression analysis for TVET institutions."""
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.linear_model import LinearRegression
+    
+    secondary_features = county_secondary[["County", "National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].copy()
+    regression_df = level_school_df.merge(secondary_features, left_on=level_school_df.columns[0], right_on="County", how="left")
+    X = regression_df[["National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].fillna(0)
+    y = regression_df["TVET_Schools"]
+    
+    X_scaled = StandardScaler().fit_transform(X)
+    model = LinearRegression().fit(X_scaled, y)
+    return model, X, X_scaled, y
