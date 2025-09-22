@@ -1,4 +1,5 @@
 import pandas as pd
+import seaborn as sns
 
 # Global counties list
 counties_list = [
@@ -160,23 +161,17 @@ def univ_tvet_ass(df_univ: pd.DataFrame, df_tvet: pd.DataFrame, counties: list =
     return univ_counts, tvet_counts
 
 
-import pandas as pd
 
-def correlation_ass(df: pd.DataFrame, edu_cols: list, school_cols: list, edu_labels: list) -> pd.DataFrame:
+def correlation_ass(df: pd.DataFrame, edu_cols, school_cols, edu_labels):
     """
-    Compute correlation matrix between population per education level and number of schools per level.
-    Automatically handles slight column name mismatches.
+    Compute correlation matrix between population per education level
+    and number of schools per level.
     """
-    # Clean column names
-    df = df.rename(columns=lambda x: x.strip().replace(" ", "_").replace("-", "_"))
-
-    # Compute correlation
     corr_matrix = pd.DataFrame(index=edu_labels, columns=edu_labels)
     for i, edu in enumerate(edu_cols):
         for j, school in enumerate(school_cols):
             if edu in df.columns and school in df.columns:
                 corr_matrix.iloc[i, j] = df[edu].corr(df[school])
             else:
-                corr_matrix.iloc[i, j] = float('nan')  # mark missing columns
+                corr_matrix.iloc[i, j] = float('nan')
     return corr_matrix.astype(float)
-

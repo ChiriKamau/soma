@@ -62,13 +62,25 @@ def univ_tvet_acs(url_univ: str, url_tvet: str) -> tuple[pd.DataFrame, pd.DataFr
     return df_univ, df_tvet
 
 
-def correlation_acs(df: pd.DataFrame) -> tuple[list[str], list[str], list[str]]:
+def level_school_df_merge(county_edu, county_schools):
     """
-    Prepare column lists and labels for correlation.
+    Merge education population and schools data to a single dataframe
+    with standardized column names for correlation.
     """
-    edu_cols = ["Pre-Primary_People", "Primary_People", "Secondary_People",
-                "Technical_and_Vocational_Training_TVET_People", "University_People"]
-    school_cols = ["Primary_Schools", "Primary_Schools", "Secondary_Schools",
-                   "TVET_Schools", "University_Schools"]
-    edu_labels = ["Pre-Primary", "Primary", "Secondary", "TVET", "University"]
-    return edu_cols, school_cols, edu_labels
+    df = pd.merge(county_edu, county_schools, left_on=county_edu.columns[0], right_on=county_schools.columns[0], how='inner')
+
+    # Rename education columns
+    df = df.rename(columns={
+        "Pre-Primary": "Pre-Primary_People",
+        "Primary": "Primary_People",
+        "Secondary": "Secondary_People",
+        "Technical and Vocational Training (TVET)": "Technical_and_Vocational_Training_TVET_People",
+        "University": "University_People",
+        "Public_Primary_Schools": "Primary_Schools",
+        "Private_Primary_Schools": "Primary_Schools",  # if you want to sum later
+        "Secondary_Schools": "Secondary_Schools",
+        "TVET_Schools": "TVET_Schools",
+        "University_Schools": "University_Schools"
+    })
+
+    return df
