@@ -62,3 +62,20 @@ def univ_tvet_add(univ_counts, tvet_counts, figsize=(15,6)):
     plt.legend(); plt.tight_layout(); plt.show()
 
 
+# Add this to your "Address" file (visualization functions):
+
+def correlation_add(level_school_df, figsize=(10,6)):
+    """Plot correlation heatmap between education populations and school counts."""
+
+    
+    edu_cols = ["Primary_People", "Secondary_People", "Technical_and_Vocational_Training_TVET_People", "University_People"]
+    school_cols = ["Primary_Schools", "Secondary_Schools", "TVET_Schools", "University_Schools"]
+    
+    corr_matrix = pd.DataFrame([[level_school_df[edu].corr(level_school_df[school]) for school in school_cols] for edu in edu_cols],
+                              index=["Primary", "Secondary", "TVET", "University"], columns=school_cols)
+    
+    plt.figure(figsize=figsize)
+    sns.heatmap(corr_matrix, annot=True, fmt='.3f', cmap="coolwarm", vmin=-1, vmax=1, center=0)
+    plt.xlabel("Schools per Level"); plt.ylabel("Population per Education Level")
+    plt.title("Correlation between Education Level Population and Number of Schools per Level")
+    plt.tight_layout(); plt.show()

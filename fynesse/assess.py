@@ -160,3 +160,16 @@ def univ_tvet_ass(df_univ: pd.DataFrame, df_tvet: pd.DataFrame, counties: list =
     return univ_counts, tvet_counts
 
 
+
+def combine_correlation_data(county_edu, county_schools, county_secondary, univ_counts, tvet_counts):
+    """Combine all datasets for correlation analysis."""
+    df = county_edu.copy()
+    df['Primary_Schools'] = county_schools['Public_Primary_Schools'] + county_schools['Private_Primary_Schools']
+    df['Secondary_Schools'] = county_secondary['Total']
+    df['TVET_Schools'] = tvet_counts.values
+    df['University_Schools'] = univ_counts.values
+    df.rename(columns={'Primary': 'Primary_People', 'Secondary': 'Secondary_People', 
+                       'Technical and Vocational Training (TVET)': 'Technical_and_Vocational_Training_TVET_People',
+                       'University': 'University_People'}, inplace=True)
+    return df
+
