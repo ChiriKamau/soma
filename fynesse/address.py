@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+import pandas as pd   
+
 
 def attendance_add(df, area_col, school_col, figsize=(15,8)):
     plt.figure(figsize=figsize)
