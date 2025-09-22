@@ -24,7 +24,7 @@ def population_add(df_county, county_col: str = "ewcounty", total_col: str = "To
     plt.tight_layout()
     plt.show() 
 
-    def population_vs_attendance(county_pop, county_att, pop_col="Total", att_col=None, figsize=(18,6)):
+def population_vs_attendance(county_pop, county_att, pop_col="Total", att_col=None, figsize=(18,6)):
     """
     Plot population (under 20) vs school attendance side by side for all counties.
     
