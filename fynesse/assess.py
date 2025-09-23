@@ -226,39 +226,45 @@ def run_tvet_regression(level_school_df, county_secondary):
     return model, X, X_scaled, y
 
 
-def regression2_ass(level_school_df):
-    """Prepare data for education level regression analysis."""
+def probability_ass(level_school_df, county_secondary):
+    """Prepare data for university probability prediction model."""
     from sklearn.preprocessing import StandardScaler
     import pandas as pd
     
-    X = pd.DataFrame({
-        "Primary_Schools": level_school_df["Primary_Schools"],
-        "Secondary_Schools": level_school_df["Secondary_Schools"],
-        "TVET_Schools": level_school_df["TVET_Schools"],
-        "University_Schools": level_school_df["University_Schools"]
+    # Merge with secondary school data to get school categories
+    secondary_features = county_secondary[["County", "National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].copy()
+    prob_df = level_school_df.merge(secondary_features, left_on=level_school_df.columns[0], right_on="County", how="left")
+    
+    # Calculate total population for ratios
+    total_population = (prob_df["Primary_People"] + prob_df["Secondary_People"] + 
+                       prob_df["Technical_and_Vocational_Training_TVET_People"] + prob_df["University_People"])
+    
+    # Create target: University probability (university people / total population)
+    y = prob_df["University_People"] / total_population
+    
+    # Create features
+    features_df = pd.DataFrame({
+        # School infrastructure per capita (per 1000 people)
+        "Primary_Schools_per_capita": (prob_df["Primary_Schools"] / total_population) * 1000,
+        "Secondary_Schools_per_capita": (prob_df["Secondary_Schools"] / total_population) * 1000,
+        "University_Schools_per_capita": (prob_df["University_Schools"] / total_population) * 1000,
+        
+        # Secondary school quality indicators (weighted by prestige)
+        "National_Schools_per_capita": (prob_df["National"] / total_population) * 1000,
+        "Extra_County_per_capita": (prob_df["Extra County"] / total_population) * 1000,
+        "County_Schools_per_capita": (prob_df["county sch"] / total_population) * 1000,
+        "Sub_County_per_capita": (prob_df["Sub County"] / total_population) * 1000,
+        "Private_Secondary_per_capita": (prob_df["Private_Secondary_Schools"] / total_population) * 1000,
+        
+        # Education pathway indicators
+        "Secondary_Education_Rate": prob_df["Secondary_People"] / total_population,
+        "Higher_Ed_Infrastructure": (prob_df["TVET_Schools"] + prob_df["University_Schools"]) / total_population * 1000
     })
     
-    y = (level_school_df["Primary_People"] * 1 +
-         level_school_df["Secondary_People"] * 2 +
-         level_school_df["Technical_and_Vocational_Training_TVET_People"] * 3 +
-         level_school_df["University_People"] * 4)
+    # Fill NaN values with 0
+    features_df.fillna(0, inplace=True)
     
-    X_scaled = StandardScaler().fit_transform(X)
-    return X, X_scaled, y
-
-def cluster_ass(level_school_df, n_clusters=4):
-    """Prepare data for clustering analysis."""
-    from sklearn.cluster import KMeans
-    from sklearn.preprocessing import StandardScaler
+    # Scale features
+    X_scaled = StandardScaler().fit_transform(features_df)
     
-    features = ["Primary_Schools", "Secondary_Schools", "TVET_Schools", "University_Schools",
-               "Primary_People", "Secondary_People", "Technical_and_Vocational_Training_TVET_People", "University_People"]
-    
-    X = level_school_df[features].fillna(0)
-    X_scaled = StandardScaler().fit_transform(X)
-    
-    clusters = KMeans(n_clusters=n_clusters, random_state=42).fit_predict(X_scaled)
-    result_df = level_school_df.copy()
-    result_df['Cluster'] = clusters
-    
-    return result_df
+    return features_df, X_scaled, y, prob_df

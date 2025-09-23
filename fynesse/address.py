@@ -194,3 +194,115 @@ def cluster_add(result_df, figsize=(12,8)):
     plt.title('County Distribution')
     
     plt.tight_layout(); plt.show()
+
+def probability_add(model, features_df, X_scaled, y, prob_df, figsize=(15,10)):
+    
+    county_col = prob_df.columns[0]
+    
+    # Model performance
+    y_pred = model.predict(X_scaled)
+    r2 = model.score(X_scaled, y)
+    
+    print("UNIVERSITY PROBABILITY PREDICTION MODEL")
+    print("=" * 50)
+    print(f"R² Score: {r2:.3f}")
+    print(f"Mean University Probability: {y.mean():.3f} ({y.mean()*100:.1f}%)")
+    print(f"Prediction Range: {y_pred.min():.3f} - {y_pred.max():.3f}")
+    
+    # Feature importance
+    feature_importance = pd.DataFrame({
+        "Feature": features_df.columns,
+        "Coefficient": model.coef_
+    }).sort_values(by="Coefficient", key=abs, ascending=False)
+    
+    print("\nTOP PREDICTIVE FACTORS:")
+    print("-" * 30)
+    for i, row in feature_importance.head(5).iterrows():
+        direction = "increases" if row["Coefficient"] > 0 else "decreases"
+        print(f"{row['Feature']}: {direction} probability by {abs(row['Coefficient']):.4f}")
+    
+    # Visualizations
+    plt.figure(figsize=figsize)
+    
+    # 1. Predicted vs Actual
+    plt.subplot(2, 3, 1)
+    plt.scatter(y, y_pred, alpha=0.7, color='blue')
+    plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--', lw=2)
+    plt.xlabel('Actual University Probability')
+    plt.ylabel('Predicted University Probability')
+    plt.title(f'Predicted vs Actual (R² = {r2:.3f})')
+    plt.grid(True, alpha=0.3)
+    
+    # 2. Feature importance
+    plt.subplot(2, 3, 2)
+    top_features = feature_importance.head(8)
+    colors = ['green' if x > 0 else 'red' for x in top_features["Coefficient"]]
+    plt.barh(range(len(top_features)), top_features["Coefficient"], color=colors)
+    plt.yticks(range(len(top_features)), top_features["Feature"])
+    plt.xlabel('Coefficient (Impact on University Probability)')
+    plt.title('Top Predictive Factors')
+    plt.grid(True, alpha=0.3)
+    
+    # 3. Secondary school quality impact
+    plt.subplot(2, 3, 3)
+    secondary_features = ["National_Schools_per_capita", "Extra_County_per_capita", "County_Schools_per_capita", 
+                         "Sub_County_per_capita", "Private_Secondary_per_capita"]
+    secondary_coeffs = [feature_importance[feature_importance["Feature"] == f]["Coefficient"].iloc[0] 
+                       if f in feature_importance["Feature"].values else 0 for f in secondary_features]
+    colors = ['darkblue', 'blue', 'lightblue', 'orange', 'red']
+    plt.bar(range(len(secondary_features)), secondary_coeffs, color=colors)
+    plt.xticks(range(len(secondary_features)), ['National', 'Extra County', 'County', 'Sub County', 'Private'], rotation=45)
+    plt.ylabel('Impact on University Probability')
+    plt.title('Secondary School Type Impact')
+    plt.grid(True, alpha=0.3)
+    
+    # 4. County predictions ranking
+    plt.subplot(2, 3, 4)
+    county_results = pd.DataFrame({
+        'County': prob_df[county_col],
+        'Actual': y,
+        'Predicted': y_pred
+    }).sort_values('Predicted', ascending=False)
+    
+    top_counties = county_results.head(10)
+    x_pos = range(len(top_counties))
+    plt.bar(x_pos, top_counties['Predicted'], alpha=0.7, color='skyblue', label='Predicted')
+    plt.bar(x_pos, top_counties['Actual'], alpha=0.7, color='orange', label='Actual')
+    plt.xticks(x_pos, top_counties['County'], rotation=90)
+    plt.ylabel('University Probability')
+    plt.title('Top 10 Counties - University Probability')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    
+    # 5. Infrastructure vs Probability
+    plt.subplot(2, 3, 5)
+    total_schools = prob_df["Primary_Schools"] + prob_df["Secondary_Schools"] + prob_df["University_Schools"]
+    plt.scatter(total_schools, y, alpha=0.7, color='green')
+    plt.xlabel('Total Schools in County')
+    plt.ylabel('University Probability')
+    plt.title('School Infrastructure vs University Probability')
+    plt.grid(True, alpha=0.3)
+    
+    # 6. Residuals plot
+    plt.subplot(2, 3, 6)
+    residuals = y - y_pred
+    plt.scatter(y_pred, residuals, alpha=0.7, color='purple')
+    plt.axhline(y=0, color='red', linestyle='--')
+    plt.xlabel('Predicted University Probability')
+    plt.ylabel('Residuals (Actual - Predicted)')
+    plt.title('Prediction Residuals')
+    plt.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # County-specific insights
+    print(f"\nHIGHEST PREDICTED UNIVERSITY PROBABILITY:")
+    print("-" * 40)
+    for i, row in county_results.head(5).iterrows():
+        print(f"{row['County']}: {row['Predicted']:.3f} ({row['Predicted']*100:.1f}%)")
+    
+    print(f"\nLOWEST PREDICTED UNIVERSITY PROBABILITY:")
+    print("-" * 40)
+    for i, row in county_results.tail(5).iterrows():
+        print(f"{row['County']}: {row['Predicted']:.3f} ({row['Predicted']*100:.1f}%)")
