@@ -334,7 +334,7 @@ def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd
     return X, X_scaled, y
 
 
-def extract_higher_ed_info_with_population(edu_df, univ_df, tvet_df, counties=county_list, pop_data=None):
+def extract_higher_ed_info_with_population(edu_df, univ_df, tvet_df, counties=counties_list, pop_data=None):
     """
     Returns a DataFrame with higher education info and total population per county,
     with duplicates removed.
