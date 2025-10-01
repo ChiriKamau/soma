@@ -334,19 +334,11 @@ def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd
     return X, X_scaled, y
 
 
-def extract_higher_ed_info_with_population(edu_df: pd.DataFrame, 
-                                           univ_df: pd.DataFrame, 
-                                           tvet_df: pd.DataFrame,
-                                           counties: list = counties_list) -> pd.DataFrame:
+def extract_higher_ed_info_with_population(edu_df, univ_df, tvet_df, counties=county_list, pop_data=None):
     """
-    Extract number of people in TVET and University, number of institutions, 
-    and include total population per county (hardcoded).
-    
-    Returns:
-        DataFrame with columns: County, TVET_People, University_People, 
-        University_Counts, TVET_Counts, Total_Population
+    Returns a DataFrame with higher education info and total population per county,
+    with duplicates removed.
     """
-    # Clean education data
     edu_clean = education_ass(edu_df, counties)
 
     # Extract only TVET and University people
@@ -361,27 +353,42 @@ def extract_higher_ed_info_with_population(edu_df: pd.DataFrame,
 
     # Get counts of universities and TVET institutions
     univ_counts, tvet_counts = univ_tvet_ass(univ_df, tvet_df, counties)
-
-    # Add counts
     higher_ed_people["University_Counts"] = higher_ed_people["County"].map(univ_counts).fillna(0).astype(int)
     higher_ed_people["TVET_Counts"] = higher_ed_people["County"].map(tvet_counts).fillna(0).astype(int)
 
-    # Hardcoded population data
-    pop_data = {
-        "BARINGO": 666763, "BOMET": 967576, "BUNGOMA": 1670576, "BUSIA": 893881,
-        "ELGEYO-MARAKWET": 454480, "EMBU": 608599, "GARISSA": 841853, "HOMA BAY": 1131950,
-        "ISIOLO": 268002, "KAJIADO": 1177840, "KAKAMEGA": 1787116, "KERICHO": 985469,
-        "KIAMBU": 2417735, "KILIFI": 1453787, "KIRINYAGA": 611411, "KISII": 1266860,
-        "KISUMU": 1155574, "KITUI": 1136187, "KWALE": 866820, "LAIKIPIA": 518560,
-        "LAMU": 143920, "MACHAKOS": 1421992, "MAKUENI": 987853, "MANDERA": 867457,
-        "MARSABIT": 459785, "MERU": 1545714, "MIGORI": 1116436, "MOMBASA": 1208333,
-        "MURANGA": 1056540, "NAIROBI": 4397073, "NAKURU": 2162202, "NANDI": 885711,
-        "NAROK": 1117840, "NYAMIRA": 605576, "NYANDARUA": 638289, "NYERI": 759141,
-        "SAMBURU": 312327, "SIAYA": 993183, "TAITA-TAVETA": 340671, "TANA RIVER": 315943,
-        "THARAKA-NITHI": 393177, "TRANS NZOIA": 990341, "TURKANA": 926976, 
-        "UASIN GISHU": 1163186, "VIHIGA": 589626, "WAJIR": 781263, "WEST POKOT": 621241
-    }
-
-    higher_ed_people["Total_Population"] = higher_ed_people["County"].map(pop_data)
+    # Add total population
+    if pop_data is not None:
+        pop_data = pop_data.copy()
+        pop_data.rename(columns={"County": "County", "Total": "Total_Population"}, inplace=True)
+        higher_ed_people = higher_ed_people.merge(pop_data, on="County", how="left")
+    
+    # Group by County to remove duplicates (sum numeric columns)
+    higher_ed_people = higher_ed_people.groupby("County", as_index=False).sum()
 
     return higher_ed_people
+
+# Example usage with manual population data
+population_manual = pd.DataFrame({
+    "County": [
+        "BARINGO","BOMET","BUNGOMA","BUSIA","ELGEYO-MARAKWET","EMBU","GARISSA",
+        "HOMA BAY","ISIOLO","KAJIADO","KAKAMEGA","KERICHO","KIAMBU","KILIFI",
+        "KIRINYAGA","KISII","KISUMU","KITUI","KWALE","LAIKIPIA","LAMU","MACHAKOS",
+        "MAKUENI","MANDERA","MARSABIT","MERU","MIGORI","MOMBASA","MURANGA",
+        "NAIROBI","NAKURU","NANDI","NAROK","NYAMIRA","NYANDARUA","NYERI",
+        "SAMBURU","SIAYA","TAITA-TAVETA","TANA RIVER","THARAKA-NITHI","TRANS NZOIA",
+        "TURKANA","UASIN GISHU","VIHIGA","WAJIR","WEST POKOT"
+    ],
+    "Total": [
+        666763,967576,1670576,893881,454480,608599,841853,1131950,268002,1177840,
+        1787116,985469,2417735,1453787,611411,1266860,1155574,1136187,866820,518560,
+        143920,1421992,987853,867457,459785,1545714,1116436,1208333,1056540,4397073,
+        2162202,885711,1117840,605576,638289,759141,312327,993183,340671,315943,
+        393177,990341,926976,1163186,589626,781263,621241
+    ]
+})
+
+# Run the function
+higher_ed_info = extract_higher_ed_info_with_population(county_edu, df_univ, df_tvet, pop_data=population_manual)
+
+# Print all 47 counties
+print(higher_ed_info.to_string(index=False))
