@@ -334,7 +334,12 @@ def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd
     return X, X_scaled, y
 
 
-def extract_higher_ed_info_with_population(edu_df: pd.DataFrame, univ_df: pd.DataFrame, tvet_df: pd.DataFrame, counties: list = counties_list) -> pd.DataFrame:
+def extract_higher_ed_info_with_population(
+    edu_df: pd.DataFrame, 
+    univ_df: pd.DataFrame, 
+    tvet_df: pd.DataFrame, 
+    counties: list = counties_list
+) -> pd.DataFrame:
     """
     Extract number of people in TVET and University, number of institutions, 
     and include total population per county (hardcoded).
@@ -380,5 +385,8 @@ def extract_higher_ed_info_with_population(edu_df: pd.DataFrame, univ_df: pd.Dat
     }
 
     higher_ed_people["Total_Population"] = higher_ed_people["County"].map(pop_data)
+
+    # Remove duplicates by grouping counties and summing numeric columns
+    higher_ed_people = higher_ed_people.groupby("County", as_index=False).sum()
 
     return higher_ed_people
