@@ -263,3 +263,30 @@ def probability_add(model, features_df, X_scaled, y, prob_df, figsize=(15,10)):
     print("-" * 40)
     for i, row in county_results.tail(5).iterrows():
         print(f"{row['County']}: {row['Predicted']:.3f} ({row['Predicted']*100:.1f}%)")
+
+# Add to address.py
+
+def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(8,5)):
+    """Plot normalized education level regression results (per capita features, average education level target)."""
+    import matplotlib.pyplot as plt
+    
+    # Clean column names for display (remove '_per_1000')
+    display_cols = [col.replace('_per_1000', '') for col in X.columns]
+    
+    coeff_df = pd.DataFrame({
+        "School_Category": display_cols,
+        "Coefficient": model.coef_
+    }).sort_values(by="Coefficient", ascending=False)
+    
+    print("Normalized Coefficients (effect of schools per 1000 population on average education level):")
+    print(coeff_df)
+    print(f"\nR^2 score: {model.score(X_scaled, y)}")
+    
+    plt.figure(figsize=figsize)
+    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="mediumpurple")
+    plt.ylabel("Coefficient (Effect on Average Education Level)")
+    plt.xlabel("School Category (per 1000 population)")
+    plt.title("Impact of Schools per Capita on Average County Education Level")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()

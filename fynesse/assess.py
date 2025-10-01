@@ -246,38 +246,6 @@ def regression2_ass(level_school_df):
     return X, X_scaled, y
 
 
-def regression2_capita(level_school_df):
-    """
-    Prepare per-capita data for education level regression analysis and create a visualization.
-    Normalizes school counts by total population (per 1,000 people).
-    """
-    # Calculate total population for scaling
-    total_population = (
-        level_school_df["Primary_People"] +
-        level_school_df["Secondary_People"] +
-        level_school_df["Technical_and_Vocational_Training_TVET_People"] +
-        level_school_df["University_People"]
-    )
-
-    # Features = per-capita school infrastructure (per 1000 people)
-    X = pd.DataFrame({
-        "Primary_Schools_per_capita": (level_school_df["Primary_Schools"] / total_population) * 1000,
-        "Secondary_Schools_per_capita": (level_school_df["Secondary_Schools"] / total_population) * 1000,
-        "TVET_Schools_per_capita": (level_school_df["TVET_Schools"] / total_population) * 1000,
-        "University_Schools_per_capita": (level_school_df["University_Schools"] / total_population) * 1000
-    })
-
-    # Target = weighted education level index
-    y = (
-        level_school_df["Primary_People"] * 1 +
-        level_school_df["Secondary_People"] * 2 +
-        level_school_df["Technical_and_Vocational_Training_TVET_People"] * 3 +
-        level_school_df["University_People"] * 4
-    ) / total_population   # normalized target
-
-    # Scale features
-    X_scaled = StandardScaler().fit_transform(X)
-
 
 def probability_ass(level_school_df, county_secondary):
     """Prepare data for university probability prediction model."""
@@ -321,3 +289,46 @@ def probability_ass(level_school_df, county_secondary):
     X_scaled = StandardScaler().fit_transform(features_df)
     
     return features_df, X_scaled, y, prob_df
+
+
+
+def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd.DataFrame):
+    """
+    Prepare normalized data for education level regression analysis.
+    Normalizes school counts by county population (per 1000 people) and computes average education level as target.
+    """
+    from sklearn.preprocessing import StandardScaler
+    import pandas as pd
+    
+    # Copy dataframe
+    df = level_school_df.copy()
+    county_col = df.columns[0]
+    
+    # Merge with county_pop (assuming county_pop has 'ewcounty' and 'Total')
+    county_pop = county_pop.rename(columns={'ewcounty': county_col})
+    df = df.merge(county_pop[[county_col, 'Total']], on=county_col, how='left')
+    
+    # Normalize school columns per 1000 population
+    school_cols = ["Primary_Schools", "Secondary_Schools", "TVET_Schools", "University_Schools"]
+    for col in school_cols:
+        df[col + '_per_1000'] = (df[col] / df['Total']) * 1000
+    
+    # Features: normalized school counts
+    X = df[[col + '_per_1000' for col in school_cols]]
+    
+    # Target: average education level (weighted average from 1 to 4)
+    edu_cols = ["Primary_People", "Secondary_People", "Technical_and_Vocational_Training_TVET_People", "University_People"]
+    weighted_sum = (df["Primary_People"] * 1 +
+                    df["Secondary_People"] * 2 +
+                    df["Technical_and_Vocational_Training_TVET_People"] * 3 +
+                    df["University_People"] * 4)
+    total_educated = df[edu_cols].sum(axis=1)
+    y = weighted_sum / total_educated  # Average education level
+    
+    # Handle any division by zero (though unlikely)
+    y = y.fillna(0)
+    
+    # Scale features
+    X_scaled = StandardScaler().fit_transform(X)
+    
+    return X, X_scaled, y
