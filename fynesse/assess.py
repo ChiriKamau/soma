@@ -334,7 +334,19 @@ def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd
     return X, X_scaled, y
 
 
-def extract_higher_ed_info(edu_df: pd.DataFrame, univ_df: pd.DataFrame, tvet_df: pd.DataFrame, counties: list = counties_list) -> pd.DataFrame:
+def extract_higher_ed_info_with_population(edu_df: pd.DataFrame, 
+                                           univ_df: pd.DataFrame, 
+                                           tvet_df: pd.DataFrame,
+                                           counties: list = counties_list) -> pd.DataFrame:
+    """
+    Extract number of people in TVET and University, number of institutions, 
+    and include total population per county (hardcoded).
+    
+    Returns:
+        DataFrame with columns: County, TVET_People, University_People, 
+        University_Counts, TVET_Counts, Total_Population
+    """
+    # Clean education data
     edu_clean = education_ass(edu_df, counties)
 
     # Extract only TVET and University people
@@ -343,14 +355,33 @@ def extract_higher_ed_info(edu_df: pd.DataFrame, univ_df: pd.DataFrame, tvet_df:
                                   "University"]].copy()
     higher_ed_people.rename(columns={
         "Technical and Vocational Training (TVET)": "TVET_People",
-        "University": "University_People"
+        "University": "University_People",
+        edu_clean.columns[0]: "County"
     }, inplace=True)
 
     # Get counts of universities and TVET institutions
     univ_counts, tvet_counts = univ_tvet_ass(univ_df, tvet_df, counties)
 
-    # Merge into single dataframe
-    higher_ed_people["University_Counts"] = higher_ed_people[edu_clean.columns[0]].map(univ_counts).fillna(0).astype(int)
-    higher_ed_people["TVET_Counts"] = higher_ed_people[edu_clean.columns[0]].map(tvet_counts).fillna(0).astype(int)
+    # Add counts
+    higher_ed_people["University_Counts"] = higher_ed_people["County"].map(univ_counts).fillna(0).astype(int)
+    higher_ed_people["TVET_Counts"] = higher_ed_people["County"].map(tvet_counts).fillna(0).astype(int)
+
+    # Hardcoded population data
+    pop_data = {
+        "BARINGO": 666763, "BOMET": 967576, "BUNGOMA": 1670576, "BUSIA": 893881,
+        "ELGEYO-MARAKWET": 454480, "EMBU": 608599, "GARISSA": 841853, "HOMA BAY": 1131950,
+        "ISIOLO": 268002, "KAJIADO": 1177840, "KAKAMEGA": 1787116, "KERICHO": 985469,
+        "KIAMBU": 2417735, "KILIFI": 1453787, "KIRINYAGA": 611411, "KISII": 1266860,
+        "KISUMU": 1155574, "KITUI": 1136187, "KWALE": 866820, "LAIKIPIA": 518560,
+        "LAMU": 143920, "MACHAKOS": 1421992, "MAKUENI": 987853, "MANDERA": 867457,
+        "MARSABIT": 459785, "MERU": 1545714, "MIGORI": 1116436, "MOMBASA": 1208333,
+        "MURANGA": 1056540, "NAIROBI": 4397073, "NAKURU": 2162202, "NANDI": 885711,
+        "NAROK": 1117840, "NYAMIRA": 605576, "NYANDARUA": 638289, "NYERI": 759141,
+        "SAMBURU": 312327, "SIAYA": 993183, "TAITA-TAVETA": 340671, "TANA RIVER": 315943,
+        "THARAKA-NITHI": 393177, "TRANS NZOIA": 990341, "TURKANA": 926976, 
+        "UASIN GISHU": 1163186, "VIHIGA": 589626, "WAJIR": 781263, "WEST POKOT": 621241
+    }
+
+    higher_ed_people["Total_Population"] = higher_ed_people["County"].map(pop_data)
 
     return higher_ed_people
