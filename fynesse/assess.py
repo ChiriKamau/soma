@@ -311,7 +311,7 @@ def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd
     # Normalize school columns per 1000 population
     school_cols = ["Primary_Schools", "Secondary_Schools", "TVET_Schools", "University_Schools"]
     for col in school_cols:
-        df[col + '_per_1000'] = (df[col] / df['Total']) * 1000
+        df[col + '_per_1000'] = (df[col] / df['Total']) * 100
     
     # Features: normalized school counts
     X = df[[col + '_per_1000' for col in school_cols]]
@@ -332,3 +332,25 @@ def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd
     X_scaled = StandardScaler().fit_transform(X)
     
     return X, X_scaled, y
+
+
+def extract_higher_ed_info(edu_df: pd.DataFrame, univ_df: pd.DataFrame, tvet_df: pd.DataFrame, counties: list = counties_list) -> pd.DataFrame:
+    edu_clean = education_ass(edu_df, counties)
+
+    # Extract only TVET and University people
+    higher_ed_people = edu_clean[[edu_clean.columns[0], 
+                                  "Technical and Vocational Training (TVET)", 
+                                  "University"]].copy()
+    higher_ed_people.rename(columns={
+        "Technical and Vocational Training (TVET)": "TVET_People",
+        "University": "University_People"
+    }, inplace=True)
+
+    # Get counts of universities and TVET institutions
+    univ_counts, tvet_counts = univ_tvet_ass(univ_df, tvet_df, counties)
+
+    # Merge into single dataframe
+    higher_ed_people["University_Counts"] = higher_ed_people[edu_clean.columns[0]].map(univ_counts).fillna(0).astype(int)
+    higher_ed_people["TVET_Counts"] = higher_ed_people[edu_clean.columns[0]].map(tvet_counts).fillna(0).astype(int)
+
+    return higher_ed_people
