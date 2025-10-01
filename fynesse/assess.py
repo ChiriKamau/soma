@@ -225,6 +225,26 @@ def run_tvet_regression(level_school_df, county_secondary):
     model = LinearRegression().fit(X_scaled, y)
     return model, X, X_scaled, y
 
+def regression2_ass(level_school_df):
+    """Prepare data for education level regression analysis."""
+    from sklearn.preprocessing import StandardScaler
+    import pandas as pd
+    
+    X = pd.DataFrame({
+        "Primary_Schools": level_school_df["Primary_Schools"],
+        "Secondary_Schools": level_school_df["Secondary_Schools"],
+        "TVET_Schools": level_school_df["TVET_Schools"],
+        "University_Schools": level_school_df["University_Schools"]
+    })
+    
+    y = (level_school_df["Primary_People"] * 1 +
+         level_school_df["Secondary_People"] * 2 +
+         level_school_df["Technical_and_Vocational_Training_TVET_People"] * 3 +
+         level_school_df["University_People"] * 4)
+    
+    X_scaled = StandardScaler().fit_transform(X)
+    return X, X_scaled, y
+
 
 def probability_ass(level_school_df, county_secondary):
     """Prepare data for university probability prediction model."""
