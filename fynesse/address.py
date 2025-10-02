@@ -95,7 +95,7 @@ def regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
     
     coefs = np.array(coefs)
     coef_mean = np.mean(coefs, axis=0) / 10000
-    coef_std = np.std(coefs, axis=0) / 15000  # error bars
+    coef_std = np.std(coefs, axis=0) / 12000  # error bars
     
     coeff_df = pd.DataFrame({
         "School_Category": X.columns,
@@ -129,19 +129,36 @@ def regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
 
 
 
-def tvet_regression_add(model, X, X_scaled, y, figsize=(8,5)):
-    """Plot TVET regression results."""
-    import matplotlib.pyplot as plt
+def tvet_regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
+    """Plot TVET regression results with error bars using bootstrap."""
     
-    coeff_df = pd.DataFrame({"School_Category": X.columns, "Coefficient": model.coef_}).sort_values(by="Coefficient", ascending=False)
+    # Bootstrap to estimate coefficient standard errors
+    coefs = []
+    for _ in range(n_bootstrap):
+        X_res, y_res = resample(X_scaled, y)
+        model_res = model.__class__().fit(X_res, y_res)
+        coefs.append(model_res.coef_)
     
+    coefs = np.array(coefs)
+    coef_mean = np.mean(coefs, axis=0) / 1000  # scale for plotting
+    coef_std = np.std(coefs, axis=0) / 1000    # error bars
+    
+    coeff_df = pd.DataFrame({
+        "School_Category": X.columns,
+        "Coefficient": coef_mean,
+        "Error": coef_std
+    }).sort_values(by="Coefficient", ascending=False)
+    
+    # Print coefficients and R^2
     print("Coefficients for TVET model:")
-    print(coeff_df)
+    print(coeff_df[["School_Category", "Coefficient"]])
     print(f"\nR^2 score: {model.score(X_scaled, y)}")
     
+    # Plot with error bars
     plt.figure(figsize=figsize)
-    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="lightgreen")
-    plt.title("Effect of Secondary School Type on TVET Institutions Enrollmentl")
+    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], 
+            yerr=coeff_df["Error"], color="lightgreen", capsize=5)
+    plt.title("Effect of Secondary School Type on TVET Institutions Enrollment")
     plt.ylabel("Coefficient (Effect on TVET Institutions / 1000)")
     plt.xlabel("Secondary School Category")
     plt.xticks(rotation=45)
