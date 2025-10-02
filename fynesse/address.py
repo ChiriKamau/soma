@@ -81,17 +81,27 @@ def correlation_add(level_school_df, figsize=(10,6)):
     plt.tight_layout(); plt.show()
 
 def regression_add(model, X, X_scaled, y, figsize=(8,5)): 
-    """Plot regression model results - coefficients and predicted vs actual (y scaled by 10,000)."""
+    """Plot regression model results - coefficients (with error bars) and predicted vs actual (y scaled by 10,000)."""
+
+    # Get standard errors via statsmodels
+    X_with_const = sm.add_constant(X_scaled)
+    sm_model = sm.OLS(y, X_with_const).fit()
+    
+    coef = sm_model.params[1:] / 10000  # skip intercept, scale
+    errors = sm_model.bse[1:] / 10000   # standard errors
+    
     coeff_df = pd.DataFrame({
         "School_Category": X.columns,
-        "Coefficient": model.coef_ / 10000  # scale coefficients
+        "Coefficient": coef,
+        "Error": errors
     }).sort_values(by="Coefficient", ascending=False)
     
-    # Coefficients bar plot
+    # Coefficients bar plot with error bars
     plt.figure(figsize=figsize)
-    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="skyblue")
-    plt.title("Impact of Secondary School Category on University Population")
-    plt.ylabel("Coefficient (Effect on University Population / 10,000)")
+    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], 
+            yerr=coeff_df["Error"], color="skyblue", capsize=5)
+    plt.title("How Different Types of Secondary Schools Affect University Enrollment")
+    plt.ylabel("Coefficient (Effect on University Enrollment / 10,000)")
     plt.xlabel("Secondary School Category")
     plt.xticks(rotation=45)
     plt.tight_layout()
@@ -102,13 +112,14 @@ def regression_add(model, X, X_scaled, y, figsize=(8,5)):
     y_scaled = y / 10000
     
     plt.figure(figsize=figsize)
-    plt.scatter(y_scaled, y_pred, color="salmon")
+    plt.scatter(y_scaled, y_pred, color="salmon", alpha=0.7, edgecolor="k")
     plt.plot([y_scaled.min(), y_scaled.max()], [y_scaled.min(), y_scaled.max()], 'k--', lw=2)
     plt.xlabel("Actual University Population (/10,000)")
     plt.ylabel("Predicted University Population (/10,000)")
     plt.title("Predicted vs Actual University Population by County")
     plt.tight_layout()
     plt.show()
+
 
 
 def tvet_regression_add(model, X, X_scaled, y, figsize=(8,5)):
