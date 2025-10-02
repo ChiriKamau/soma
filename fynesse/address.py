@@ -2,8 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import pandas as pd   
-import statsmodels.api as sm
-
 
 
 def attendance_add(df, area_col, school_col, figsize=(15,8)):
@@ -82,20 +80,27 @@ def correlation_add(level_school_df, figsize=(10,6)):
     plt.title("Correlation between Education Level Population and Number of Schools per Level")
     plt.tight_layout(); plt.show()
 
-def regression_add(model, X, X_scaled, y, figsize=(8,5)): 
-    """Plot regression model results - coefficients (with error bars) and predicted vs actual (y scaled by 10,000)."""
 
-    # Get standard errors via statsmodels
-    X_with_const = sm.add_constant(X_scaled)
-    sm_model = sm.OLS(y, X_with_const).fit()
+from sklearn.utils import resample
+
+def regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000): 
+    """Plot regression model results - coefficients (with bootstrap error bars) and predicted vs actual (y scaled by 10,000)."""
     
-    coef = sm_model.params[1:] / 10000  # skip intercept, scale
-    errors = sm_model.bse[1:] / 10000   # standard errors
+    # Bootstrap to estimate standard errors
+    coefs = []
+    for _ in range(n_bootstrap):
+        X_res, y_res = resample(X_scaled, y)
+        model_res = model.__class__().fit(X_res, y_res)
+        coefs.append(model_res.coef_)
+    
+    coefs = np.array(coefs)
+    coef_mean = np.mean(coefs, axis=0) / 10000
+    coef_std = np.std(coefs, axis=0) / 10000  # error bars
     
     coeff_df = pd.DataFrame({
         "School_Category": X.columns,
-        "Coefficient": coef,
-        "Error": errors
+        "Coefficient": coef_mean,
+        "Error": coef_std
     }).sort_values(by="Coefficient", ascending=False)
     
     # Coefficients bar plot with error bars
