@@ -304,20 +304,10 @@ def probability_add(model, features_df, X_scaled, y, prob_df, figsize=(15,10)):
 
 # Add to address.py
 
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-from sklearn.utils import resample
-
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-from sklearn.utils import resample
-
-def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
-    """Plot normalized education level regression results (per capita features, average education level target) with error bars."""
+def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(10, 6), n_bootstrap=1000):
+    """Plot normalized education level regression results as horizontal bar chart with error bars."""
     
-    # Clean column names for display (remove '_per_1000')
+    # Clean column names for display
     display_cols = [col.replace('_per_1000', '') for col in X.columns]
     
     # Bootstrap to estimate standard errors
@@ -329,24 +319,32 @@ def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(8,5), n_boots
     
     coefs = np.array(coefs)
     coef_mean = np.mean(coefs, axis=0)
-    coef_std = np.std(coefs, axis=0)  # error bars
+    coef_std = np.std(coefs, axis=0)
     
     coeff_df = pd.DataFrame({
         "School_Category": display_cols,
         "Coefficient": coef_mean,
         "Error": coef_std
-    }).sort_values(by="Coefficient", ascending=False)
+    }).sort_values(by="Coefficient", ascending=True)  # ascending for horizontal
     
     print("Normalized Coefficients (effect of schools per 1000 population on average education level):")
     print(coeff_df[["School_Category", "Coefficient"]])
-    print(f"\nR^2 score: {model.score(X_scaled, y)}")
+    print(f"\nR² score: {model.score(X_scaled, y):.3f}")
     
-    plt.figure(figsize=figsize)
-    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], 
-            yerr=coeff_df["Error"], color="mediumpurple", capsize=5)
-    plt.ylabel("Coefficient (Effect on Average Education Level)")
-    plt.xlabel("School Category (per 1000 population)")
-    plt.title("Impact of Schools per Capita on Average County Education Level")
-    plt.xticks(rotation=45)
+    # Create horizontal bar chart
+    fig, ax = plt.subplots(figsize=figsize)
+    
+    colors = ['#d73027' if x < 0 else '#4575b4' for x in coeff_df["Coefficient"]]
+    
+    ax.barh(coeff_df["School_Category"], coeff_df["Coefficient"], 
+            xerr=coeff_df["Error"], color=colors, capsize=5, alpha=0.8)
+    
+    ax.axvline(x=0, color='black', linestyle='-', linewidth=0.8)
+    ax.set_xlabel("Coefficient (Effect on Average Education Level)", fontsize=11)
+    ax.set_ylabel("School Type (per 1,000 population)", fontsize=11)
+    ax.set_title("Impact of Schools per Capita on County Education Level", 
+                 fontsize=13, fontweight='bold', pad=15)
+    ax.grid(axis='x', alpha=0.3, linestyle='--')
+    
     plt.tight_layout()
     plt.show()
