@@ -204,12 +204,38 @@ def combine_correlation_data(county_edu, county_schools, county_secondary, univ_
 
 # Add this to your "Assess" file:
 
+
+POP_DATA = {
+    "BARINGO": 666763, "BOMET": 967576, "BUNGOMA": 1670576, "BUSIA": 893881,
+    "ELGEYO-MARAKWET": 454480, "EMBU": 608599, "GARISSA": 841853, "HOMA BAY": 1131950,
+    "ISIOLO": 268002, "KAJIADO": 1177840, "KAKAMEGA": 1787116, "KERICHO": 985469,
+    "KIAMBU": 2417735, "KILIFI": 1453787, "KIRINYAGA": 611411, "KISII": 1266860,
+    "KISUMU": 1155574, "KITUI": 1136187, "KWALE": 866820, "LAIKIPIA": 518560,
+    "LAMU": 143920, "MACHAKOS": 1421992, "MAKUENI": 987853, "MANDERA": 867457,
+    "MARSABIT": 459785, "MERU": 1545714, "MIGORI": 1116436, "MOMBASA": 1208333,
+    "MURANGA": 1056540, "NAIROBI": 4397073, "NAKURU": 2162202, "NANDI": 885711,
+    "NAROK": 1117840, "NYAMIRA": 605576, "NYANDARUA": 638289, "NYERI": 759141,
+    "SAMBURU": 312327, "SIAYA": 993183, "TAITA-TAVETA": 340671, "TANA RIVER": 315943,
+    "THARAKA-NITHI": 393177, "TRANS NZOIA": 990341, "TURKANA": 926976, 
+    "UASIN GISHU": 1163186, "VIHIGA": 589626, "WAJIR": 781263, "WEST POKOT": 621241
+}
+
 def prepare_regression_data(level_school_df, county_secondary):
-    """Prepare data for regression analysis."""
+    """Prepare data for regression analysis, normalizing by population from POP_DATA."""
     secondary_features = county_secondary[["County", "National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].copy()
     regression_df = level_school_df.merge(secondary_features, left_on=level_school_df.columns[0], right_on="County", how="left")
+    
+    # Add population from POP_DATA
+    regression_df["Total_Population"] = regression_df["County"].map(POP_DATA)
+    
+    # Normalize X features (schools per 1,000 population)
+    for col in ["National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]:
+        regression_df[col] = (regression_df[col].fillna(0) / regression_df["Total_Population"]) * 1000
+    
+    # Normalize y (university people per 1,000 population)
+    y = (regression_df["University_People"] / regression_df["Total_Population"]) * 1000
+    
     X = regression_df[["National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]].fillna(0)
-    y = regression_df["University_People"]
     return X, y
 
 def run_tvet_regression(level_school_df, county_secondary):
