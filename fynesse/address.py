@@ -80,33 +80,36 @@ def correlation_add(level_school_df, figsize=(10,6)):
     plt.title("Correlation between Education Level Population and Number of Schools per Level")
     plt.tight_layout(); plt.show()
 
-def regression_add(model, X, X_scaled, y, figsize=(8,5)):
-    """Plot regression model results - coefficients and predicted vs actual."""
+def regression_add(model, X, X_scaled, y, figsize=(8,5)): 
+    """Plot regression model results - coefficients and predicted vs actual (y scaled by 10,000)."""
     coeff_df = pd.DataFrame({
         "School_Category": X.columns,
-        "Coefficient": model.coef_
+        "Coefficient": model.coef_ / 10000  # scale coefficients
     }).sort_values(by="Coefficient", ascending=False)
     
+    # Coefficients bar plot
     plt.figure(figsize=figsize)
     plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="skyblue")
     plt.title("Impact of Secondary School Category on University Population")
-    plt.ylabel("Coefficient (Effect on University Population)")
+    plt.ylabel("Coefficient (Effect on University Population / 10,000)")
     plt.xlabel("Secondary School Category")
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
     
     # Predicted vs Actual plot
-    y_pred = model.predict(X_scaled)
+    y_pred = model.predict(X_scaled) / 10000
+    y_scaled = y / 10000
     
     plt.figure(figsize=figsize)
-    plt.scatter(y, y_pred, color="salmon")
-    plt.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=2)
-    plt.xlabel("Actual University Population")
-    plt.ylabel("Predicted University Population")
+    plt.scatter(y_scaled, y_pred, color="salmon")
+    plt.plot([y_scaled.min(), y_scaled.max()], [y_scaled.min(), y_scaled.max()], 'k--', lw=2)
+    plt.xlabel("Actual University Population (/10,000)")
+    plt.ylabel("Predicted University Population (/10,000)")
     plt.title("Predicted vs Actual University Population by County")
     plt.tight_layout()
     plt.show()
+
 
 def tvet_regression_add(model, X, X_scaled, y, figsize=(8,5)):
     """Plot TVET regression results."""
