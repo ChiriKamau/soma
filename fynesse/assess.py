@@ -334,15 +334,41 @@ def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd
     return X, X_scaled, y
 
 
+pop_data = {
+    "BARINGO": 666763, "BOMET": 967576, "BUNGOMA": 1670576, "BUSIA": 893881,
+    "ELGEYO-MARAKWET": 454480, "EMBU": 608599, "GARISSA": 841853, "HOMA BAY": 1131950,
+    "ISIOLO": 268002, "KAJIADO": 1177840, "KAKAMEGA": 1787116, "KERICHO": 985469,
+    "KIAMBU": 2417735, "KILIFI": 1453787, "KIRINYAGA": 611411, "KISII": 1266860,
+    "KISUMU": 1155574, "KITUI": 1136187, "KWALE": 866820, "LAIKIPIA": 518560,
+    "LAMU": 143920, "MACHAKOS": 1421992, "MAKUENI": 987853, "MANDERA": 867457,
+    "MARSABIT": 459785, "MERU": 1545714, "MIGORI": 1116436, "MOMBASA": 1208333,
+    "MURANGA": 1056540, "NAIROBI": 4397073, "NAKURU": 2162202, "NANDI": 885711,
+    "NAROK": 1117840, "NYAMIRA": 605576, "NYANDARUA": 638289, "NYERI": 759141,
+    "SAMBURU": 312327, "SIAYA": 993183, "TAITA-TAVETA": 340671, "TANA RIVER": 315943,
+    "THARAKA-NITHI": 393177, "TRANS NZOIA": 990341, "TURKANA": 926976, 
+    "UASIN GISHU": 1163186, "VIHIGA": 589626, "WAJIR": 781263, "WEST POKOT": 621241
+}
+
+# Call the function with population data
+result_df = extract_higher_ed_info_with_population(edu_df, univ_df, tvet_df, pop_data=pop_data)
+
 def extract_higher_ed_info_with_population(
     edu_df: pd.DataFrame, 
     univ_df: pd.DataFrame, 
     tvet_df: pd.DataFrame, 
-    counties: list = counties_list
+    counties: list = counties_list,
+    pop_data: dict = None
 ) -> pd.DataFrame:
     """
     Extract number of people in TVET and University, number of institutions, 
-    and include total population per county (hardcoded).
+    and include total population per county.
+    
+    Args:
+        edu_df: DataFrame containing education data.
+        univ_df: DataFrame containing university data.
+        tvet_df: DataFrame containing TVET data.
+        counties: List of county names (default: counties_list).
+        pop_data: Dictionary mapping county names to total population (optional).
     
     Returns:
         DataFrame with columns: County, TVET_People, University_People, 
@@ -368,23 +394,9 @@ def extract_higher_ed_info_with_population(
     higher_ed_people["University_Counts"] = higher_ed_people["County"].map(univ_counts).fillna(0).astype(int)
     higher_ed_people["TVET_Counts"] = higher_ed_people["County"].map(tvet_counts).fillna(0).astype(int)
 
-    # Hardcoded population data
-    pop_data = {
-        "BARINGO": 666763, "BOMET": 967576, "BUNGOMA": 1670576, "BUSIA": 893881,
-        "ELGEYO-MARAKWET": 454480, "EMBU": 608599, "GARISSA": 841853, "HOMA BAY": 1131950,
-        "ISIOLO": 268002, "KAJIADO": 1177840, "KAKAMEGA": 1787116, "KERICHO": 985469,
-        "KIAMBU": 2417735, "KILIFI": 1453787, "KIRINYAGA": 611411, "KISII": 1266860,
-        "KISUMU": 1155574, "KITUI": 1136187, "KWALE": 866820, "LAIKIPIA": 518560,
-        "LAMU": 143920, "MACHAKOS": 1421992, "MAKUENI": 987853, "MANDERA": 867457,
-        "MARSABIT": 459785, "MERU": 1545714, "MIGORI": 1116436, "MOMBASA": 1208333,
-        "MURANGA": 1056540, "NAIROBI": 4397073, "NAKURU": 2162202, "NANDI": 885711,
-        "NAROK": 1117840, "NYAMIRA": 605576, "NYANDARUA": 638289, "NYERI": 759141,
-        "SAMBURU": 312327, "SIAYA": 993183, "TAITA-TAVETA": 340671, "TANA RIVER": 315943,
-        "THARAKA-NITHI": 393177, "TRANS NZOIA": 990341, "TURKANA": 926976, 
-        "UASIN GISHU": 1163186, "VIHIGA": 589626, "WAJIR": 781263, "WEST POKOT": 621241
-    }
-
-    higher_ed_people["Total_Population"] = higher_ed_people["County"].map(pop_data)
+    # Add population data if provided, otherwise leave as NaN
+    if pop_data is not None:
+        higher_ed_people["Total_Population"] = higher_ed_people["County"].map(pop_data)
 
     # Remove duplicates by grouping counties and summing numeric columns
     higher_ed_people = higher_ed_people.groupby("County", as_index=False).sum()
