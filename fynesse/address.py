@@ -95,7 +95,7 @@ def regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
     
     coefs = np.array(coefs)
     coef_mean = np.mean(coefs, axis=0) / 10000
-    coef_std = np.std(coefs, axis=0) / 10000  # error bars
+    coef_std = np.std(coefs, axis=0) / 6000  # error bars
     
     coeff_df = pd.DataFrame({
         "School_Category": X.columns,
@@ -107,8 +107,8 @@ def regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
     plt.figure(figsize=figsize)
     plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], 
             yerr=coeff_df["Error"], color="skyblue", capsize=5)
-    plt.title("How Different Types of Secondary Schools Affect University Enrollment")
-    plt.ylabel("Coefficient (Effect on University Enrollment / 10,000)")
+    plt.title("Effect of Secondary School Type on University Enrollment")
+    plt.ylabel("Coefficient (Effect on University Enrollment / 1000)")
     plt.xlabel("Secondary School Category")
     plt.xticks(rotation=45)
     plt.tight_layout()
@@ -116,7 +116,7 @@ def regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
     
     # Predicted vs Actual plot
     y_pred = model.predict(X_scaled) / 10000
-    y_scaled = y / 10000
+    y_scaled = y / 6000
     
     plt.figure(figsize=figsize)
     plt.scatter(y_scaled, y_pred, color="salmon", alpha=0.7, edgecolor="k")
@@ -141,8 +141,8 @@ def tvet_regression_add(model, X, X_scaled, y, figsize=(8,5)):
     
     plt.figure(figsize=figsize)
     plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="lightgreen")
-    plt.title("Impact of Secondary School Category on TVET Institutions")
-    plt.ylabel("Coefficient (Effect on TVET Institutions)")
+    plt.title("Effect of Secondary School Type on TVET Institutions Enrollmentl")
+    plt.ylabel("Coefficient (Effect on TVET Institutions / 1000)")
     plt.xlabel("Secondary School Category")
     plt.xticks(rotation=45)
     plt.tight_layout()
