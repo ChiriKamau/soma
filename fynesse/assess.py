@@ -350,8 +350,6 @@ pop_data = {
 }
 
 # Call the function with population data
-result_df = extract_higher_ed_info_with_population(edu_df, univ_df, tvet_df, pop_data=pop_data)
-
 def extract_higher_ed_info_with_population(
     edu_df: pd.DataFrame, 
     univ_df: pd.DataFrame, 
