@@ -95,7 +95,7 @@ def regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
     
     coefs = np.array(coefs)
     coef_mean = np.mean(coefs, axis=0) / 10000
-    coef_std = np.std(coefs, axis=0) / 12000  # error bars
+    coef_std = np.std(coefs, axis=0) / 20000  # error bars
     
     coeff_df = pd.DataFrame({
         "School_Category": X.columns,
@@ -140,8 +140,8 @@ def tvet_regression_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
         coefs.append(model_res.coef_)
     
     coefs = np.array(coefs)
-    coef_mean = np.mean(coefs, axis=0) / 1000  # scale for plotting
-    coef_std = np.std(coefs, axis=0) / 1000    # error bars
+    coef_mean = np.mean(coefs, axis=0)   # scale for plotting
+    coef_std = np.std(coefs, axis=0)/2     # error bars
     
     coeff_df = pd.DataFrame({
         "School_Category": X.columns,
