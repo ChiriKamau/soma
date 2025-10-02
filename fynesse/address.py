@@ -309,8 +309,13 @@ import pandas as pd
 import numpy as np
 from sklearn.utils import resample
 
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from sklearn.utils import resample
+
 def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(8,5), n_bootstrap=1000):
-    """Plot normalized education level regression results with bootstrap error bars."""
+    """Plot normalized education level regression results (per capita features, average education level target) with error bars."""
     
     # Clean column names for display (remove '_per_1000')
     display_cols = [col.replace('_per_1000', '') for col in X.columns]
@@ -332,29 +337,16 @@ def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(8,5), n_boots
         "Error": coef_std
     }).sort_values(by="Coefficient", ascending=False)
     
-    # Print results
     print("Normalized Coefficients (effect of schools per 1000 population on average education level):")
     print(coeff_df[["School_Category", "Coefficient"]])
     print(f"\nR^2 score: {model.score(X_scaled, y)}")
     
-    # Assign colors for better visualization (positive vs negative effect)
-    colors = ['mediumpurple' if x >=0 else 'plum' for x in coeff_df["Coefficient"]]
-    
-    # Plot with error bars
     plt.figure(figsize=figsize)
-    bars = plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], 
-                   yerr=coeff_df["Error"], color=colors, capsize=5, edgecolor='black')
-    
-    # Add coefficient values on top of bars
-    for bar, coef in zip(bars, coeff_df["Coefficient"]):
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, height + 0.01*max(coeff_df["Coefficient"]),
-                 f'{coef:.2f}', ha='center', va='bottom', fontsize=9)
-    
+    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], 
+            yerr=coeff_df["Error"], color="mediumpurple", capsize=5)
     plt.ylabel("Coefficient (Effect on Average Education Level)")
     plt.xlabel("School Category (per 1000 population)")
     plt.title("Impact of Schools per Capita on Average County Education Level")
     plt.xticks(rotation=45)
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
     plt.show()
