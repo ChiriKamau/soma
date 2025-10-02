@@ -204,7 +204,6 @@ def combine_correlation_data(county_edu, county_schools, county_secondary, univ_
 
 # Add this to your "Assess" file:
 
-
 POP_DATA = {
     "BARINGO": 666763, "BOMET": 967576, "BUNGOMA": 1670576, "BUSIA": 893881,
     "ELGEYO-MARAKWET": 454480, "EMBU": 608599, "GARISSA": 841853, "HOMA BAY": 1131950,
@@ -228,9 +227,16 @@ def prepare_regression_data(level_school_df, county_secondary):
     # Add population from POP_DATA
     regression_df["Total_Population"] = regression_df["County"].map(POP_DATA)
     
+    # Convert relevant columns to numeric, coercing errors to NaN
+    numeric_cols = ["University_People", "National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]
+    for col in numeric_cols:
+        if col in regression_df.columns:
+            regression_df[col] = pd.to_numeric(regression_df[col], errors='coerce').fillna(0)
+    
     # Normalize X features (schools per 1,000 population)
     for col in ["National", "Extra County", "county sch", "Sub County", "Private_Secondary_Schools"]:
-        regression_df[col] = (regression_df[col].fillna(0) / regression_df["Total_Population"]) * 1000
+        if col in regression_df.columns:
+            regression_df[col] = (regression_df[col] / regression_df["Total_Population"]) * 1000
     
     # Normalize y (university people per 1,000 population)
     y = (regression_df["University_People"] / regression_df["Total_Population"]) * 1000
