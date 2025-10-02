@@ -80,45 +80,31 @@ def correlation_add(level_school_df, figsize=(10,6)):
     plt.title("Correlation between Education Level Population and Number of Schools per Level")
     plt.tight_layout(); plt.show()
 
-def regression_add(X, y, figsize=(10, 6)):
-    """Plot regression model results with coefficients, confidence intervals, and predicted vs actual."""
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-    X_scaled = sm.add_constant(X_scaled)  # Add intercept
-    
-    model = sm.OLS(y, X_scaled).fit()
-    
-    # Coefficients and 95% confidence intervals (exclude intercept)
+def regression_add(model, X, X_scaled, y, figsize=(8,5)):
+    """Plot regression model results - coefficients and predicted vs actual."""
     coeff_df = pd.DataFrame({
         "School_Category": X.columns,
-        "Coefficient": model.params[1:],
-        "Lower_CI": model.conf_int()[1:, 0],
-        "Upper_CI": model.conf_int()[1:, 1]
+        "Coefficient": model.coef_
     }).sort_values(by="Coefficient", ascending=False)
     
-    coeff_df["Error"] = (coeff_df["Upper_CI"] - coeff_df["Lower_CI"]) / 2
-    
-    # Better coefficient plot with error bars and color differentiation
-    colors = ['green' if val > 0 else 'red' if val < 0 else 'gray' for val in coeff_df["Coefficient"]]
     plt.figure(figsize=figsize)
-    bars = plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], yerr=coeff_df["Error"], capsize=5, color=colors, alpha=0.8)
-    plt.axhline(0, color='black', linewidth=0.8, linestyle='--')  # Reference line at 0
-    plt.title("Impact of Secondary School Category (per 1,000 Pop.) on University Population (per 1,000 Pop.)")
-    plt.ylabel("Coefficient (Effect Size with 95% CI)")
+    plt.bar(coeff_df["School_Category"], coeff_df["Coefficient"], color="skyblue")
+    plt.title("Impact of Secondary School Category on University Population")
+    plt.ylabel("Coefficient (Effect on University Population)")
     plt.xlabel("Secondary School Category")
-    plt.xticks(rotation=45, ha='right')
+    plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
     
-    # Predicted vs Actual plot with R^2 in title
+    # Predicted vs Actual plot
     y_pred = model.predict(X_scaled)
     
     plt.figure(figsize=figsize)
-    plt.scatter(y, y_pred, color="salmon", alpha=0.7)
+    plt.scatter(y, y_pred, color="salmon")
     plt.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=2)
-    plt.xlabel("Actual Normalized University Population")
-    plt.ylabel("Predicted Normalized University Population")
-    plt.title(f"Predicted vs Actual (R² = {model.rsquared:.2f})")
+    plt.xlabel("Actual University Population")
+    plt.ylabel("Predicted University Population")
+    plt.title("Predicted vs Actual University Population by County")
     plt.tight_layout()
     plt.show()
 
