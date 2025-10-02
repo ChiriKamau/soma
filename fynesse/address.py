@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import pandas as pd   
+import statsmodels.api as sm
+
 
 
 def attendance_add(df, area_col, school_col, figsize=(15,8)):
