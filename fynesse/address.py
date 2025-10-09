@@ -354,53 +354,18 @@ def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(10, 6), n_boo
 
 # County coordinates (centroids)
 county_coords = {
-    "BARINGO": (0.58, 36.1),
-    "BOMET": (-0.77, 35.3),
-    "BUNGOMA": (0.57, 34.57),
-    "BUSIA": (0.46, 34.1),
-    "ELGEYO-MARAKWET": (0.6, 35.5),
-    "EMBU": (-0.53, 37.45),
-    "GARISSA": (-0.46, 39.65),
-    "HOMA BAY": (-0.52, 34.45),
-    "ISIOLO": (0.35, 37.58),
-    "KAJIADO": (-2.0, 36.8),
-    "KAKAMEGA": (0.28, 34.75),
-    "KERICHO": (-0.37, 35.28),
-    "KIAMBU": (-1.0, 36.8),
-    "KILIFI": (-3.63, 39.85),
-    "KIRINYAGA": (-0.52, 37.28),
-    "KISII": (-0.68, 34.77),
-    "KISUMU": (-0.09, 34.76),
-    "KITUI": (-1.35, 38.0),
-    "KWALE": (-4.05, 39.45),
-    "LAIKIPIA": (0.3, 36.8),
-    "LAMU": (-2.27, 40.9),
-    "MACHAKOS": (-1.5, 37.27),
-    "MAKUENI": (-1.8, 37.6),
-    "MANDERA": (3.94, 41.85),
-    "MARSABIT": (2.34, 37.98),
-    "MERU": (0.05, 37.65),
-    "MIGORI": (-1.15, 34.47),
-    "MOMBASA": (-4.05, 39.66),
-    "MURANGA": (-0.7, 37.0),
-    "NAIROBI": (-1.29, 36.82),
-    "NAKURU": (-0.28, 36.07),
-    "NANDI": (0.1, 35.12),
-    "NAROK": (-1.08, 35.86),
-    "NYAMIRA": (-0.63, 34.92),
-    "NYANDARUA": (-0.05, 36.35),
-    "NYERI": (-0.42, 36.95),
-    "SAMBURU": (0.55, 37.52),
-    "SIAYA": (0.06, 34.28),
-    "TAITA-TAVETA": (-3.4, 38.25),
-    "TANA RIVER": (-1.43, 39.85),
-    "THARAKA-NITHI": (-0.32, 37.65),
-    "TRANS NZOIA": (1.0, 35.0),
-    "TURKANA": (3.45, 35.95),
-    "UASIN GISHU": (0.6, 35.3),
-    "VIHIGA": (0.09, 34.74),
-    "WAJIR": (1.75, 40.06),
-    "WEST POKOT": (1.15, 35.1)
+    "BARINGO": (0.58,36.1), "BOMET": (-0.77,35.3), "BUNGOMA": (0.57,34.57), "BUSIA": (0.46,34.1),
+    "ELGEYO-MARAKWET": (0.6,35.5), "EMBU": (-0.53,37.45), "GARISSA": (-0.46,39.65), "HOMA BAY": (-0.52,34.45),
+    "ISIOLO": (0.35,37.58), "KAJIADO": (-2.0,36.8), "KAKAMEGA": (0.28,34.75), "KERICHO": (-0.37,35.28),
+    "KIAMBU": (-1.0,36.8), "KILIFI": (-3.63,39.85), "KIRINYAGA": (-0.52,37.28), "KISII": (-0.68,34.77),
+    "KISUMU": (-0.09,34.76), "KITUI": (-1.35,38.0), "KWALE": (-4.05,39.45), "LAIKIPIA": (0.3,36.8),
+    "LAMU": (-2.27,40.9), "MACHAKOS": (-1.5,37.27), "MAKUENI": (-1.8,37.6), "MANDERA": (3.94,41.85),
+    "MARSABIT": (2.34,37.98), "MERU": (0.05,37.65), "MIGORI": (-1.15,34.47), "MOMBASA": (-4.05,39.66),
+    "MURANGA": (-0.7,37.0), "NAIROBI": (-1.29,36.82), "NAKURU": (-0.28,36.07), "NANDI": (0.1,35.12),
+    "NAROK": (-1.08,35.86), "NYAMIRA": (-0.63,34.92), "NYANDARUA": (-0.05,36.35), "NYERI": (-0.42,36.95),
+    "SAMBURU": (0.55,37.52), "SIAYA": (0.06,34.28), "TAITA-TAVETA": (-3.4,38.25), "TANA RIVER": (-1.43,39.85),
+    "THARAKA-NITHI": (-0.32,37.65), "TRANS NZOIA": (1.0,35.0), "TURKANA": (3.45,35.95),
+    "UASIN GISHU": (0.6,35.3), "VIHIGA": (0.09,34.74), "WAJIR": (1.75,40.06), "WEST POKOT": (1.15,35.1)
 }
 
 def plot_university_map(higher_ed_info):
@@ -450,3 +415,28 @@ def plot_university_map(higher_ed_info):
     )
     
     fig.show()
+
+def plot_feature_relationships(level_school_df, county_pop, regression_func):
+    # Run regression function to get features and target
+    X, X_scaled, y = regression_func(level_school_df, county_pop)
+    
+    # Print summaries
+    print("Feature Summary:")
+    print(X.describe())
+    print("\nTarget Summary:")
+    print(y.describe())
+    
+    # Correlation matrix
+    print("\nFeature Correlations:")
+    print(X.corr())
+    
+    # Scatter plots for each feature
+    for col in X.columns:
+        plt.figure(figsize=(6, 4))
+        plt.scatter(X[col], y, alpha=0.7, color='skyblue', edgecolor='k')
+        plt.xlabel(col)
+        plt.ylabel("Average Education Level")
+        plt.title(f"{col} vs Average Education Level")
+        plt.grid(True, linestyle='--', alpha=0.5)
+        plt.tight_layout()
+        plt.show()
