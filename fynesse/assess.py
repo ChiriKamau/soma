@@ -305,8 +305,6 @@ def probability_ass(level_school_df, county_secondary):
     
     return features_df, X_scaled, y, prob_df
 
-
-
 def regression2_pop_normalized_ass(level_school_df: pd.DataFrame, county_pop: pd.DataFrame):
     """
     Prepare normalized data for education level regression analysis.

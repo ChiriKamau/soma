@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import pandas as pd   
+import plotly.express as px
 
 
 def attendance_add(df, area_col, school_col, figsize=(15,8)):
@@ -348,3 +349,104 @@ def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(10, 6), n_boo
     
     plt.tight_layout()
     plt.show()
+
+
+
+# County coordinates (centroids)
+county_coords = {
+    "BARINGO": (0.58, 36.1),
+    "BOMET": (-0.77, 35.3),
+    "BUNGOMA": (0.57, 34.57),
+    "BUSIA": (0.46, 34.1),
+    "ELGEYO-MARAKWET": (0.6, 35.5),
+    "EMBU": (-0.53, 37.45),
+    "GARISSA": (-0.46, 39.65),
+    "HOMA BAY": (-0.52, 34.45),
+    "ISIOLO": (0.35, 37.58),
+    "KAJIADO": (-2.0, 36.8),
+    "KAKAMEGA": (0.28, 34.75),
+    "KERICHO": (-0.37, 35.28),
+    "KIAMBU": (-1.0, 36.8),
+    "KILIFI": (-3.63, 39.85),
+    "KIRINYAGA": (-0.52, 37.28),
+    "KISII": (-0.68, 34.77),
+    "KISUMU": (-0.09, 34.76),
+    "KITUI": (-1.35, 38.0),
+    "KWALE": (-4.05, 39.45),
+    "LAIKIPIA": (0.3, 36.8),
+    "LAMU": (-2.27, 40.9),
+    "MACHAKOS": (-1.5, 37.27),
+    "MAKUENI": (-1.8, 37.6),
+    "MANDERA": (3.94, 41.85),
+    "MARSABIT": (2.34, 37.98),
+    "MERU": (0.05, 37.65),
+    "MIGORI": (-1.15, 34.47),
+    "MOMBASA": (-4.05, 39.66),
+    "MURANGA": (-0.7, 37.0),
+    "NAIROBI": (-1.29, 36.82),
+    "NAKURU": (-0.28, 36.07),
+    "NANDI": (0.1, 35.12),
+    "NAROK": (-1.08, 35.86),
+    "NYAMIRA": (-0.63, 34.92),
+    "NYANDARUA": (-0.05, 36.35),
+    "NYERI": (-0.42, 36.95),
+    "SAMBURU": (0.55, 37.52),
+    "SIAYA": (0.06, 34.28),
+    "TAITA-TAVETA": (-3.4, 38.25),
+    "TANA RIVER": (-1.43, 39.85),
+    "THARAKA-NITHI": (-0.32, 37.65),
+    "TRANS NZOIA": (1.0, 35.0),
+    "TURKANA": (3.45, 35.95),
+    "UASIN GISHU": (0.6, 35.3),
+    "VIHIGA": (0.09, 34.74),
+    "WAJIR": (1.75, 40.06),
+    "WEST POKOT": (1.15, 35.1)
+}
+
+def plot_university_map(higher_ed_info):
+    """
+    Creates an interactive Plotly scatter mapbox showing university access per county.
+    
+    Parameters:
+        higher_ed_info (pd.DataFrame): DataFrame containing columns:
+            - 'County'
+            - 'University_People'
+            - 'University_Counts'
+            - 'Total_Population'
+    
+    Usage in notebook:
+        import address_plotly as ap
+        ap.plot_university_map(higher_ed_info)
+    """
+    # Map lat/lon to DataFrame
+    higher_ed_info['lat'] = higher_ed_info['County'].map(lambda x: county_coords[x][0])
+    higher_ed_info['lon'] = higher_ed_info['County'].map(lambda x: county_coords[x][1])
+    
+    # Calculate university proportion
+    higher_ed_info['University_Proportion'] = higher_ed_info['University_People'] / higher_ed_info['Total_Population']
+    
+    # Create scatter mapbox
+    fig = px.scatter_mapbox(
+        higher_ed_info,
+        lat='lat',
+        lon='lon',
+        size='University_Proportion',
+        color='University_Counts',
+        hover_name='County',
+        hover_data={
+            'University_Proportion': ':.2%',
+            'Total_Population': True,
+            'University_People': True,
+            'University_Counts': True
+        },
+        size_max=40,
+        zoom=5,
+        mapbox_style="carto-positron"
+    )
+    
+    fig.update_layout(
+        hoverlabel=dict(font_size=16, font_family="Arial"),
+        title_text="University Access and Distribution Across Kenyan Counties"
+    )
+    
+    fig.show()
