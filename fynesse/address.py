@@ -303,7 +303,7 @@ def probability_add(model, features_df, X_scaled, y, prob_df, figsize=(15,10)):
     for i, row in county_results.tail(5).iterrows():
         print(f"{row['County']}: {row['Predicted']:.3f} ({row['Predicted']*100:.1f}%)")
 
-# Add to address.py
+
 
 def regression2_pop_normalized_add(model, X, X_scaled, y, figsize=(10, 6), n_bootstrap=1000):
     """Plot normalized education level regression results as horizontal bar chart with error bars."""
